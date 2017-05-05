@@ -1,0 +1,9 @@
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Installer.exe.config
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Installer.exe
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Installer.pdb
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csprojResolveAssemblyReference.cache
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.Form1.resources
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.Properties.Resources.resources
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.GenerateResource.Cache
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.exe
+c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.pdb
