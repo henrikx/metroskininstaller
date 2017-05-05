@@ -85,13 +85,13 @@ namespace Metro_Skin_Installer
                 richTextBox1.AppendText("\nLooking for latest version of Metro For Steam");
                 string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
                 List<string> downloadEventArgs = new List<string>();
-                var regex = Regex.Match(source, "href=\"downloads(\\/*.*.zip)\"");
+                var regex = Regex.Match(source, "href=\"downloads(\\/*.*.zip)\""); //This regexp to find the newest version, is subject to change because it only supports finding it if the file has 3 version numbers.
 
                 if (Convert.ToString(regex) != "")
                 {
-                    downloadEventArgs.Add("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
-                    downloadEventArgs.Add(steamSkinPath);
-                    downloadEventArgs.Add(Path.GetTempPath()+Convert.ToString(regex.Groups[1].Value));
+                    downloadEventArgs.Add("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value)); //Where to download skin from
+                    downloadEventArgs.Add(steamSkinPath); //Where to install skin
+                    downloadEventArgs.Add(Path.GetTempPath()+Convert.ToString(regex.Groups[1].Value)); //Where temporarily downloaded file is located
                     richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadEventArgs[0]));
                     downloadFileWorker.RunWorkerAsync(downloadEventArgs);
                 }
@@ -139,9 +139,14 @@ namespace Metro_Skin_Installer
 
         private void downloadFile_DoWork(object sender, DoWorkEventArgs e)
         {
+
             WebClient downloadFile = new WebClient();
             List<string> DownloaderEventArgs = e.Argument as List<string>;
             richTextBox1.AppendText("\nDownloading file...");
+            downloadFile.DownloadProgressChanged += (s, f) =>
+            {
+                richTextBox1.AppendText("\n" + f.ProgressPercentage);
+            };
             downloadFile.DownloadFile(DownloaderEventArgs[0],DownloaderEventArgs[2]);
             UnZipfile(DownloaderEventArgs[1],DownloaderEventArgs[2]);
         }
@@ -150,9 +155,10 @@ namespace Metro_Skin_Installer
             ZipFile zip = new ZipFile();
             using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
             {
-                zip1.ExtractAll(steamDir);
+                richTextBox1.AppendText("\nExtracting...");
+                zip1.ExtractAll(steamDir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                richTextBox1.AppendText("\nAll done! You can close this program now");
             }
-
         }
     }
 }
