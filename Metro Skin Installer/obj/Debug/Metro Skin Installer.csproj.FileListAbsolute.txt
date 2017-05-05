@@ -7,3 +7,12 @@ c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro
 c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.GenerateResource.Cache
 c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.exe
 c:\users\henrik\documents\visual studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.pdb
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\bin\Debug\Metro Skin Installer.exe.config
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\bin\Debug\Metro Skin Installer.exe
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\bin\Debug\Metro Skin Installer.pdb
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.csprojResolveAssemblyReference.cache
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.Form1.resources
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.Properties.Resources.resources
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.GenerateResource.Cache
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.exe
+C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.pdb

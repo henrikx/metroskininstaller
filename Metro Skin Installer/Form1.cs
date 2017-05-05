@@ -20,6 +20,7 @@ namespace Metro_Skin_Installer
         public Form1()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -74,13 +75,12 @@ namespace Metro_Skin_Installer
 
             
         }
-
-        private void button4_Click(object sender, EventArgs e)
+        private void downloadStarter(bool debug)
         {
             string steamSkinPath = getSteamSkinPath();
-            if(Directory.Exists (steamSkinPath))
+            if (Directory.Exists(steamSkinPath))
             {
-                richTextBox1.AppendText("\nSteam skin directory found: "+ steamSkinPath);
+                richTextBox1.AppendText("\nSteam skin directory found: " + steamSkinPath);
                 WebClient downloadFile = new WebClient();
                 richTextBox1.AppendText("\nLooking for latest version of Metro For Steam");
                 string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
@@ -89,21 +89,65 @@ namespace Metro_Skin_Installer
                 {
                     string downloadUrl = "http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value);
                     richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadUrl));
-                    downloadFileWorker.RunWorkerAsync();
-                } else
+                    downloadFileWorker.RunWorkerAsync(downloadUrl);
+                }
+                else
                 {
                     richTextBox1.AppendText("\nCouldn't find latest version on metroforsteam.com");
                 }
 
-            } else
+            }
+            else if (debug)
+            {
+                WebClient downloadFile = new WebClient();
+                string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
+                var regex = Regex.Match(source, "href=\"downloads(\\/*.*.zip)\"");
+                string debugpath = Application.StartupPath;
+                string debugFilePath = Application.StartupPath + Convert.ToString(regex.Groups[1].Value);
+                richTextBox1.AppendText("\nSteam skin directory found: (debug mode) " + debugpath);
+                richTextBox1.AppendText("\nLooking for latest version of Metro For Steam");
+                if (Convert.ToString(regex) != "")
+                {
+                    string downloadUrl = "http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value);
+                    richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadUrl));
+                    List<string> downloaderEventArgs = new List<string>();
+                    downloaderEventArgs.Add(downloadUrl);
+                    downloaderEventArgs.Add(debugpath);
+                    downloaderEventArgs.Add(debugFilePath);
+                    downloadFileWorker.RunWorkerAsync(downloaderEventArgs);
+                }
+                else
+                {
+                    richTextBox1.AppendText("\nCouldn't find latest version on metroforsteam.com");
+                }
+            }
+            else
             {
                 richTextBox1.AppendText("\nCould not find a Steam installation");
             }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            bool debug = true;
+            downloadStarter(debug);
 
         }
 
         private void downloadFile_DoWork(object sender, DoWorkEventArgs e)
         {
+            WebClient downloadFile = new WebClient();
+            List<string> DownloaderEventArgs = e.Argument as List<string>;
+            richTextBox1.AppendText("\nDownloading file...");
+            downloadFile.DownloadFile(DownloaderEventArgs[0],DownloaderEventArgs[2]);
+            UnZipfile(DownloaderEventArgs[1],DownloaderEventArgs[2]);
+        }
+        private void UnZipfile(string steamDir, string path)
+        {
+            ZipFile zip = new ZipFile();
+            using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
+            {
+                zip1.ExtractAll(steamDir);
+            }
 
         }
     }
