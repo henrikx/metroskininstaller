@@ -84,12 +84,16 @@ namespace Metro_Skin_Installer
                 WebClient downloadFile = new WebClient();
                 richTextBox1.AppendText("\nLooking for latest version of Metro For Steam");
                 string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
+                List<string> downloadEventArgs = new List<string>();
                 var regex = Regex.Match(source, "href=\"downloads(\\/*.*.zip)\"");
+
                 if (Convert.ToString(regex) != "")
                 {
-                    string downloadUrl = "http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value);
-                    richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadUrl));
-                    downloadFileWorker.RunWorkerAsync(downloadUrl);
+                    downloadEventArgs.Add("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
+                    downloadEventArgs.Add(steamSkinPath);
+                    downloadEventArgs.Add(Path.GetTempPath()+Convert.ToString(regex.Groups[1].Value));
+                    richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadEventArgs[0]));
+                    downloadFileWorker.RunWorkerAsync(downloadEventArgs);
                 }
                 else
                 {
@@ -128,7 +132,7 @@ namespace Metro_Skin_Installer
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            bool debug = true;
+            bool debug = false;
             downloadStarter(debug);
 
         }
