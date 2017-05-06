@@ -36,7 +36,19 @@ namespace Metro_Skin_Installer
             }
             else if (radioButton2.Checked)
             {
+                richTextBox1.AppendText("\nDownloading latest community patch");
+                List<String> downloadPatchEventArgs = new List<string>();
+                downloadPatchEventArgs.Add("https://github.com/redsigma/UPMetroSkin/archive/installer.zip"); //From where to download patch
+                if (!Directory.Exists(Path.GetTempPath() + "patchfiles\\"))
+                {
+                    Directory.CreateDirectory(Path.GetTempPath() + "patchfiles\\");
+                }
+                downloadPatchEventArgs.Add(Path.GetTempPath() + "patchfiles\\"); //Where to extract temporary files
+                downloadPatchEventArgs.Add(Path.GetTempPath() + "patchfiles.zip"); //Where temporary file is downloaded
+                downloadFileWorker.RunWorkerAsync(downloadPatchEventArgs);
                 withPatch.Visible = true;
+
+                
             }
             else
             {
@@ -118,6 +130,7 @@ namespace Metro_Skin_Installer
                     downloaderEventArgs.Add(downloadUrl);
                     downloaderEventArgs.Add(debugpath);
                     downloaderEventArgs.Add(debugFilePath);
+                    downloaderEventArgs.Add("true");
                     downloadFileWorker.RunWorkerAsync(downloaderEventArgs);
                 }
                 else
@@ -152,13 +165,17 @@ namespace Metro_Skin_Installer
         }
         private void UnZipfile(string steamDir, string path)
         {
-            ZipFile zip = new ZipFile();
             using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
             {
                 richTextBox1.AppendText("\nExtracting...");
                 zip1.ExtractAll(steamDir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                richTextBox1.AppendText("\nAll done! You can close this program now");
             }
+            if (path.Contains("patchfiles"))
+            {
+                button5.Enabled = true;
+                richTextBox1.AppendText("\nPatch downloaded. Select optional extras and press \"Next\" to start the install");
+            }
+            File.Delete(path);
         }
     }
 }
