@@ -45,6 +45,7 @@ namespace Metro_Skin_Installer
                 }
                 downloadPatchEventArgs.Add(Path.GetTempPath() + "patchfiles\\"); //Where to extract temporary files
                 downloadPatchEventArgs.Add(Path.GetTempPath() + "patchfiles.zip"); //Where temporary file is downloaded
+                downloadPatchEventArgs.Add("false");
                 downloadFileWorker.RunWorkerAsync(downloadPatchEventArgs);
                 withPatch.Visible = true;
 
@@ -70,6 +71,7 @@ namespace Metro_Skin_Installer
         private void button6_Click(object sender, EventArgs e)
         {
             withPatch.Visible = false;
+            checkedListBox1.Items.Clear();
         }
 
         public string getSteamSkinPath()
@@ -87,7 +89,7 @@ namespace Metro_Skin_Installer
 
             
         }
-        private void downloadStarter(bool debug)
+        private void downloadStarter(bool debug, bool isPatch)
         {
             string steamSkinPath = getSteamSkinPath();
             if (Directory.Exists(steamSkinPath))
@@ -104,6 +106,7 @@ namespace Metro_Skin_Installer
                     downloadEventArgs.Add("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value)); //Where to download skin from
                     downloadEventArgs.Add(steamSkinPath); //Where to install skin
                     downloadEventArgs.Add(Path.GetTempPath()+Convert.ToString(regex.Groups[1].Value)); //Where temporarily downloaded file is located
+                    downloadEventArgs.Add(Convert.ToString(isPatch));
                     richTextBox1.AppendText("\nFound latest version: " + Convert.ToString(downloadEventArgs[0]));
                     downloadFileWorker.RunWorkerAsync(downloadEventArgs);
                 }
@@ -130,7 +133,7 @@ namespace Metro_Skin_Installer
                     downloaderEventArgs.Add(downloadUrl);
                     downloaderEventArgs.Add(debugpath);
                     downloaderEventArgs.Add(debugFilePath);
-                    downloaderEventArgs.Add("true");
+                    downloaderEventArgs.Add(Convert.ToString(isPatch));
                     downloadFileWorker.RunWorkerAsync(downloaderEventArgs);
                 }
                 else
@@ -146,14 +149,15 @@ namespace Metro_Skin_Installer
         private void button4_Click(object sender, EventArgs e)
         {
             bool debug = false;
-            downloadStarter(debug);
+            bool isPatch = false;
+            downloadStarter(debug, isPatch);
 
         }
 
         private void downloadFile_DoWork(object sender, DoWorkEventArgs e)
         {
             List<string> DownloaderEventArgs = e.Argument as List<string>;
-            if (DownloaderEventArgs[2].Contains("patchfiles") && Directory.Exists(DownloaderEventArgs[1]))
+            if (DownloaderEventArgs[2].Contains("patchfiles") && Directory.Exists(DownloaderEventArgs[1]+"UPMetroSkin\\"))
             {
                 detectExtras(DownloaderEventArgs[1] + "UPMetroSkin-installer\\");
                 return;
@@ -166,9 +170,9 @@ namespace Metro_Skin_Installer
                 richTextBox1.AppendText("\n" + f.ProgressPercentage);
             };
             downloadFile.DownloadFile(DownloaderEventArgs[0],DownloaderEventArgs[2]);
-            UnZipfile(DownloaderEventArgs[1],DownloaderEventArgs[2]);
+            UnZipfile(DownloaderEventArgs[1],DownloaderEventArgs[2], DownloaderEventArgs[3]);
         }
-        private void UnZipfile(string steamDir, string path)
+        private void UnZipfile(string steamDir, string path, string isPatch)
         {
 
             using (ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
@@ -182,6 +186,10 @@ namespace Metro_Skin_Installer
                 detectExtras(steamDir+ "UPMetroSkin-installer\\");
                 richTextBox1.AppendText("\nPatch downloaded. Select optional extras and press \"Next\" to start the install");
             }
+            if (isPatch == "true")
+            {
+                InstallPatch(steamDir);
+            }
             File.Delete(path);
         }
         private void detectExtras(string extrasPath)
@@ -189,10 +197,34 @@ namespace Metro_Skin_Installer
             string[] manifest = File.ReadAllLines(extrasPath + "\\manifest.txt");
             
             for (int i=0; i <= manifest.Length-1; i++)
-            {
-                string getNameFromManifest = Regex.Match((manifest[i].Replace("\\","")), "\"(.*?)\"").Groups[1].Value;
-                checkedListBox1.Items.Add(getNameFromManifest);
+            { 
+                
+                if (Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[3].Value == "")
+                {
+                    string getNameFromManifest = Regex.Match((manifest[i].Replace("\\","")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[1].Value;
+                    checkedListBox1.Items.Add(getNameFromManifest);
+
+                }
+                
             }
+        }
+        private void InstallPatch (string steamDir)
+        {
+            File.Copy(Path.GetTempPath()+"patchfiles\\",steamDir);
+            for (int checkCheckedNum = 0; checkCheckedNum <= checkedListBox1.Items.Count; checkCheckedNum++)
+            {
+                if (checkedListBox1.GetItemChecked(checkCheckedNum))
+                {
+
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            bool debug = false;
+            bool isPatch = true;
+            downloadStarter(debug, isPatch);
         }
     }
 }
