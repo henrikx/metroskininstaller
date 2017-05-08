@@ -179,7 +179,7 @@ namespace Metro_Skin_Installer
             if (path.Contains("patchfiles"))
             {
                 button5.Enabled = true;
-                detectExtras(steamDir+ "UPMetroSkin-installer\\normal_Extras\\");
+                detectExtras(steamDir+ "UPMetroSkin-installer\\");
                 richTextBox1.AppendText("\nPatch downloaded. Select optional extras and press \"Next\" to start the install");
             }
             File.Delete(path);
