@@ -152,9 +152,14 @@ namespace Metro_Skin_Installer
 
         private void downloadFile_DoWork(object sender, DoWorkEventArgs e)
         {
-
-            WebClient downloadFile = new WebClient();
             List<string> DownloaderEventArgs = e.Argument as List<string>;
+            if (DownloaderEventArgs[2].Contains("patchfiles") && Directory.Exists(DownloaderEventArgs[1]))
+            {
+                detectExtras(DownloaderEventArgs[1] + "UPMetroSkin-installer\\");
+                return;
+            }
+            WebClient downloadFile = new WebClient();
+
             richTextBox1.AppendText("\nDownloading file...");
             downloadFile.DownloadProgressChanged += (s, f) =>
             {
@@ -165,17 +170,29 @@ namespace Metro_Skin_Installer
         }
         private void UnZipfile(string steamDir, string path)
         {
-            using (Ionic.Zip.ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
+
+            using (ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
             {
                 richTextBox1.AppendText("\nExtracting...");
-                zip1.ExtractAll(steamDir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                zip1.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
             }
             if (path.Contains("patchfiles"))
             {
                 button5.Enabled = true;
+                detectExtras(steamDir+ "UPMetroSkin-installer\\normal_Extras\\");
                 richTextBox1.AppendText("\nPatch downloaded. Select optional extras and press \"Next\" to start the install");
             }
             File.Delete(path);
+        }
+        private void detectExtras(string extrasPath)
+        {
+            string[] manifest = File.ReadAllLines(extrasPath + "\\manifest.txt");
+            
+            for (int i=0; i <= manifest.Length-1; i++)
+            {
+                string getNameFromManifest = Regex.Match((manifest[i].Replace("\\","")), "\"(.*?)\"").Groups[1].Value;
+                checkedListBox1.Items.Add(getNameFromManifest);
+            }
         }
     }
 }
