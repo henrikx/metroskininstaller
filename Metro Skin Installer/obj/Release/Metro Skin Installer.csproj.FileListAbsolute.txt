@@ -1,0 +1,10 @@
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Release\Metro Skin Installer.exe.config
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Release\Metro Skin Installer.exe
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Release\Metro Skin Installer.pdb
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Release\Ionic.Zip.dll
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.csprojResolveAssemblyReference.cache
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro_Skin_Installer.Form1.resources
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro_Skin_Installer.Properties.Resources.resources
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.csproj.GenerateResource.Cache
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.exe
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.pdb

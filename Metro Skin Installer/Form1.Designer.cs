@@ -117,6 +117,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.noPatch);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(15, 227);
@@ -139,7 +140,7 @@
             this.noPatch.Controls.Add(this.label2);
             this.noPatch.Controls.Add(this.button4);
             this.noPatch.Controls.Add(this.button2);
-            this.noPatch.Location = new System.Drawing.Point(492, 41);
+            this.noPatch.Location = new System.Drawing.Point(0, 0);
             this.noPatch.Name = "noPatch";
             this.noPatch.Size = new System.Drawing.Size(453, 180);
             this.noPatch.TabIndex = 8;
@@ -181,7 +182,7 @@
             this.withPatch.Controls.Add(this.label3);
             this.withPatch.Controls.Add(this.button5);
             this.withPatch.Controls.Add(this.button6);
-            this.withPatch.Location = new System.Drawing.Point(492, 253);
+            this.withPatch.Location = new System.Drawing.Point(15, 227);
             this.withPatch.Name = "withPatch";
             this.withPatch.Size = new System.Drawing.Size(453, 180);
             this.withPatch.TabIndex = 9;
@@ -230,7 +231,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 0;
-            this.button6.Text = "Previous";
+            this.button6.Text = "Cancel";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -243,14 +244,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(971, 455);
+            this.ClientSize = new System.Drawing.Size(488, 455);
             this.Controls.Add(this.withPatch);
-            this.Controls.Add(this.noPatch);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MinimumSize = new System.Drawing.Size(987, 494);
             this.Name = "Form1";
             this.Text = "Installer";
             this.panel1.ResumeLayout(false);

@@ -70,8 +70,20 @@ namespace Metro_Skin_Installer
 
         private void button6_Click(object sender, EventArgs e)
         {
-            withPatch.Visible = false;
-            checkedListBox1.Items.Clear();
+            if (Directory.Exists(Path.GetTempPath() + "patchfiles"))
+            {
+                try
+                {
+                    Directory.Delete(Path.GetTempPath() + "patchfiles",true);
+                }
+                catch (System.IO.IOException)
+                {
+
+                }
+
+            }
+
+            Application.Exit();
         }
 
         public string getSteamSkinPath()
@@ -206,7 +218,7 @@ namespace Metro_Skin_Installer
                     checkedListBox1.Items.Add(getNameFromManifest);
 
                 }
-
+                button5.Enabled = true;
             }
         }
         private void InstallPatch(string steamDir)
