@@ -184,12 +184,29 @@ namespace Metro_Skin_Installer
 
             using (ZipFile zip1 = Ionic.Zip.ZipFile.Read(path))
             {
+                bool customStylesExists;
+                customStylesExists = false;
+                if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles")&& isPatch != "True")
+                {
+                    richTextBox1.AppendText("\nDetected previous installation. Will keep custom.styles");
+                    customStylesExists = true;
+                    File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
+                }
                 richTextBox1.AppendText("\nExtracting...");
                 zip1.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
                 richTextBox1.AppendText("\nExtracted");
+                if (customStylesExists)
+                {
+                    File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles;", true);
+                    File.Delete(Path.GetTempPath() + "custom.styles");
+                }
                 if (isPatch == "True")
                 {
                     InstallPatch(steamDir);
+                }
+                if (isPatch != "True")
+                {
+                    richTextBox1.AppendText("\nAll done!");
                 }
             }
             if (path.Contains("patchfiles"))
@@ -219,6 +236,14 @@ namespace Metro_Skin_Installer
         private void InstallPatch(string steamDir)
         {
             richTextBox1.AppendText("\nInstalling patch");
+            bool customStylesExists;
+            customStylesExists = false;
+            if(File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
+            {
+                richTextBox1.AppendText("\nDetected previous installation. Will keep custom.styles");
+                customStylesExists = true;
+                File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles",true);
+            }
             DirectoryCopy(Path.GetTempPath() + "patchfiles\\UPMetroSkin-installer\\normal_Unofficial Patch", steamDir+"\\Metro 4.2.4", true);
             for (int checkCheckedNum = 0; checkCheckedNum <= checkedListBox1.Items.Count-1; checkCheckedNum++)
             {
@@ -226,6 +251,11 @@ namespace Metro_Skin_Installer
                 {
 
                 }
+            }
+            if (customStylesExists)
+            {
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles;",true);
+                File.Delete(Path.GetTempPath() + "custom.styles");
             }
             richTextBox1.AppendText("\nAll done!");
 
