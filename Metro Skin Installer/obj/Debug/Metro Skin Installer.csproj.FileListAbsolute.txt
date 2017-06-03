@@ -16,3 +16,4 @@ C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metr
 C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.GenerateResource.Cache
 C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.exe
 C:\lazarus\Projects\Metro\metroskininstaller\Metro Skin Installer\obj\Debug\Metro Skin Installer.pdb
+C:\Users\Henrik\Documents\Visual Studio 2015\Projects\Metro Skin Installer\Metro Skin Installer\bin\Debug\Ionic.Zip.dll

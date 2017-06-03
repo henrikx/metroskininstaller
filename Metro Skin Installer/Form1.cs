@@ -245,11 +245,15 @@ namespace Metro_Skin_Installer
                 File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles",true);
             }
             DirectoryCopy(Path.GetTempPath() + "patchfiles\\UPMetroSkin-installer\\normal_Unofficial Patch", steamDir+"\\Metro 4.2.4", true);
+            richTextBox1.AppendText("\nPatch Installed");
+            string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\manifest.txt");
             for (int checkCheckedNum = 0; checkCheckedNum <= checkedListBox1.Items.Count-1; checkCheckedNum++)
             {
                 if (checkedListBox1.GetItemChecked(checkCheckedNum))
                 {
-
+                    richTextBox1.AppendText("\nInstalling extra " + checkedListBox1.GetItemText(checkedListBox1.Items[checkCheckedNum]));
+                    string ExtraPath = Regex.Match((manifest[checkCheckedNum].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
+                    DirectoryCopy(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath,steamDir+"\\Metro 4.2.4", true);
                 }
             }
             if (customStylesExists)
