@@ -7,8 +7,7 @@ It includes both the community patched version (contains some extras and support
 https://github.com/henrikx/metroskininstaller/releases
 
 # Todo
-* Fix installer overwriting custom.styles
-* Installing extras
+* Add support for high DPI version
 
 https://github.com/henrikx/metroskininstaller/issues
 
