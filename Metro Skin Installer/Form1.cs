@@ -98,6 +98,10 @@ namespace Metro_Skin_Installer
         }
         private void downloadStarter(bool debug, bool isPatch)
         {
+            button4.Enabled = false;
+            button4.Text = "Close";
+            button5.Enabled = false;
+            button5.Text = "Close";
             string steamSkinPath = getSteamSkinPath();
             if (Directory.Exists(steamSkinPath))
             {
@@ -155,6 +159,11 @@ namespace Metro_Skin_Installer
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            if (button4.Text == "Close")
+            {
+                Application.Exit();
+                return;
+            }
             bool debug = false;
             bool isPatch = false;
             downloadStarter(debug, isPatch);
@@ -207,6 +216,7 @@ namespace Metro_Skin_Installer
                 if (isPatch != "True")
                 {
                     richTextBox1.AppendText("\nAll done!");
+                    button4.Enabled = true;
                 }
             }
             if (path.Contains("patchfiles"))
@@ -262,11 +272,16 @@ namespace Metro_Skin_Installer
                 File.Delete(Path.GetTempPath() + "custom.styles");
             }
             richTextBox1.AppendText("\nAll done!");
-
+            button5.Enabled = true;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (button5.Text == "Close")
+            {
+                Application.Exit();
+                return;
+            }
             bool debug = false;
             bool isPatch = true;
             downloadStarter(debug, isPatch);

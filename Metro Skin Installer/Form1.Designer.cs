@@ -137,6 +137,7 @@
             // 
             // noPatch
             // 
+            this.noPatch.Controls.Add(this.withPatch);
             this.noPatch.Controls.Add(this.label2);
             this.noPatch.Controls.Add(this.button4);
             this.noPatch.Controls.Add(this.button2);
@@ -182,7 +183,7 @@
             this.withPatch.Controls.Add(this.label3);
             this.withPatch.Controls.Add(this.button5);
             this.withPatch.Controls.Add(this.button6);
-            this.withPatch.Location = new System.Drawing.Point(15, 227);
+            this.withPatch.Location = new System.Drawing.Point(0, 0);
             this.withPatch.Name = "withPatch";
             this.withPatch.Size = new System.Drawing.Size(453, 180);
             this.withPatch.TabIndex = 9;
@@ -244,8 +245,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(488, 455);
-            this.Controls.Add(this.withPatch);
+            this.ClientSize = new System.Drawing.Size(487, 455);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
