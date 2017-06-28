@@ -31,6 +31,7 @@ namespace Metro_Skin_Installer
             }
             else if (radioButton2.Checked)
             {
+                withPatch.Visible = true;
                 richTextBox1.AppendText("\nDownloading latest community patch");
                 List<String> downloadPatchEventArgs = new List<string>();
                 downloadPatchEventArgs.Add("https://github.com/redsigma/UPMetroSkin/archive/installer.zip"); //From where to download patch
@@ -42,7 +43,7 @@ namespace Metro_Skin_Installer
                 downloadPatchEventArgs.Add(Path.GetTempPath() + "patchfiles.zip"); //Where temporary file is downloaded
                 downloadPatchEventArgs.Add("false");
                 downloadFileWorker.RunWorkerAsync(downloadPatchEventArgs);
-                withPatch.Visible = true;
+                
 
 
             }

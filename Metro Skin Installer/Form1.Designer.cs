@@ -37,15 +37,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.noPatch = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.withPatch = new System.Windows.Forms.Panel();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.downloadFileWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -117,7 +117,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.noPatch);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(15, 227);
@@ -137,44 +136,14 @@
             // 
             // noPatch
             // 
-            this.noPatch.Controls.Add(this.withPatch);
             this.noPatch.Controls.Add(this.label2);
             this.noPatch.Controls.Add(this.button4);
             this.noPatch.Controls.Add(this.button2);
-            this.noPatch.Location = new System.Drawing.Point(0, 0);
+            this.noPatch.Location = new System.Drawing.Point(15, 227);
             this.noPatch.Name = "noPatch";
             this.noPatch.Size = new System.Drawing.Size(453, 180);
             this.noPatch.TabIndex = 8;
             this.noPatch.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Press next to start the installation";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(375, 154);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Next";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(294, 154);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Previous";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // withPatch
             // 
@@ -183,7 +152,7 @@
             this.withPatch.Controls.Add(this.label3);
             this.withPatch.Controls.Add(this.button5);
             this.withPatch.Controls.Add(this.button6);
-            this.withPatch.Location = new System.Drawing.Point(0, 0);
+            this.withPatch.Location = new System.Drawing.Point(15, 227);
             this.withPatch.Name = "withPatch";
             this.withPatch.Size = new System.Drawing.Size(453, 180);
             this.withPatch.TabIndex = 9;
@@ -236,6 +205,35 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(161, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Press next to start the installation";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(375, 154);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 1;
+            this.button4.Text = "Next";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(294, 154);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Previous";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // downloadFileWorker
             // 
             this.downloadFileWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.downloadFile_DoWork);
@@ -246,6 +244,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(487, 455);
+            this.Controls.Add(this.withPatch);
+            this.Controls.Add(this.noPatch);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label1);
