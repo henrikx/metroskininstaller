@@ -56,7 +56,7 @@ namespace Metro_Skin_Installer
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            noPatch.Visible = false;
+            Application.Exit();
         }
 
         private void button3_Click(object sender, EventArgs e)
