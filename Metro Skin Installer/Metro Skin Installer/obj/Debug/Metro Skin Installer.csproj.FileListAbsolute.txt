@@ -8,3 +8,4 @@ C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin 
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Updater Tool.exe
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Updater Tool.pdb
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.MainForm.resources
+C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\bin\Debug\Ionic.Zip.dll
