@@ -9,7 +9,6 @@ C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin 
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Updater Tool.pdb
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.MainForm.resources
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\bin\Debug\Ionic.Zip.dll
-C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csprojResolveAssemblyReference.cache
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.MainForm.resources
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro_Skin_Installer.Properties.Resources.resources
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.GenerateResource.Cache
