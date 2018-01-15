@@ -24,32 +24,36 @@ namespace Metro_Skin_Installer
         }
         private void DownloadWorker_DoWork_1(object sender, DoWorkEventArgs e) //When installwindow is activated
         {
+            CurrentWorker.Text = "Base Skin";
             List<bool> InstallerArguments = e.Argument as List<bool>;
             DownloadOfficial(InstallActions.GetLatestMetro());
             InstallActions.InstallSkin(InstallActions.FindSteamSkinDir());
-            if (!InstallerArguments[1])
-            {
-                installProgress.Value = 100;
-            }
             if (InstallerArguments[1])
             {
+                CurrentWorker.Text = "Unofficial Patch";
                 installProgress.Value += 25;
                 InstallActions.InstallPatch(InstallActions.FindSteamSkinDir());
                 InstallExtras();
-                installProgress.Value = 100;
-
             }
+            installProgress.Value = 100;
+            CurrentWorker.Text = "Finished";
+            button1.Enabled = true;
+            button1.ForeColor = Color.White;
         }
         private void InstallExtras()
         {
-            int incrementalProgressbarIncrease = extrasListBox.SelectedItems.Count;
+            int incrementalProgressbarIncrease = extrasListBox.CheckedItems.Count;
             for (int i = 0; i< extrasListBox.Items.Count;i++)
             {
-                string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\manifest.txt");
-                string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
-                InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
+                if (extrasListBox.GetItemChecked(i))
+                {
+                    string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\manifest.txt");
+                    string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
+                    CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]) + " (" + Convert.ToString(i + 1) + "/" + extrasListBox.CheckedItems.Count + ")";
+                    InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
+                    installProgress.Value += incrementalProgressbarIncrease;
+                }
             }
-
         }
         private void DownloadPatch_DoWork(object sender, DoWorkEventArgs e) //When select extras window is activated
         {
