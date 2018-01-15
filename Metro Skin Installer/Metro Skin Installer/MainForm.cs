@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Net;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Metro_Skin_Installer
 {
@@ -23,11 +24,33 @@ namespace Metro_Skin_Installer
         }
         private void DownloadWorker_DoWork_1(object sender, DoWorkEventArgs e) //When installwindow is activated
         {
+            List<bool> InstallerArguments = e.Argument as List<bool>;
             DownloadOfficial(InstallActions.GetLatestMetro());
-            InstallActions.InstallSkin();
-            installProgress.Value += 25;
-        }
+            InstallActions.InstallSkin(InstallActions.FindSteamSkinDir());
+            if (!InstallerArguments[1])
+            {
+                installProgress.Value = 100;
+            }
+            if (InstallerArguments[1])
+            {
+                installProgress.Value += 25;
+                InstallActions.InstallPatch(InstallActions.FindSteamSkinDir());
+                InstallExtras();
+                installProgress.Value = 100;
 
+            }
+        }
+        private void InstallExtras()
+        {
+            int incrementalProgressbarIncrease = extrasListBox.SelectedItems.Count;
+            for (int i = 0; i< extrasListBox.Items.Count;i++)
+            {
+                string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\manifest.txt");
+                string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
+                InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
+            }
+
+        }
         private void DownloadPatch_DoWork(object sender, DoWorkEventArgs e) //When select extras window is activated
         {
             DownloadPatch();
@@ -69,7 +92,7 @@ namespace Metro_Skin_Installer
         }
         #endregion
 
-        string SteamSkinPath = InstallActions.FindSteamDir();
+        string SteamSkinPath = InstallActions.FindSteamSkinDir();
 
         #region Page1
         private void PatchedNextButton_Click(object sender, EventArgs e)
@@ -79,28 +102,37 @@ namespace Metro_Skin_Installer
             if (InstallActions.CheckSteamSkinDirectoryExists(SteamSkinPath))
             {
                 DownloadPatchWorker.RunWorkerAsync();
+            } else
+            {
+                MessageBox.Show("No Steam Skin directory found.");
             }
 
         }
         private void OfficialInstallbutton_Click(object sender, EventArgs e)
         {
-            page1.Visible = false;
-            InstallerPage.Visible = true;
-            DownloadWorker.RunWorkerAsync();
-
+            if (InstallActions.CheckSteamSkinDirectoryExists(InstallActions.FindSteamSkinDir()))
+            {
+                bool isPatch = false;
+                List<bool> InstallerArguments = new List<bool>();
+                InstallerArguments.Add(isPatch);
+                page1.Visible = false;
+                InstallerPage.Visible = true;
+                DownloadWorker.RunWorkerAsync(InstallerArguments);
+            } else
+            {
+                MessageBox.Show("No Steam Skin directory found.");
+            }
         }
         private void PatchInstallButton_Click(object sender, EventArgs e)
         {
+            bool isPatch = true;
+            List<bool> InstallerArguments = new List<bool>();
+            InstallerArguments.Add(isPatch);
             InstallerPage.Visible = true;
             page2patched.Visible = false;
-            DownloadWorker.RunWorkerAsync();
+            DownloadWorker.RunWorkerAsync(InstallerArguments);
         }
         #endregion
-        private void InstallerPageOpened(bool isPatch)
-        {
-            DownloadWorker.RunWorkerAsync();
-        }
-
         private void DownloadPatch()
         {
             string TempDir = Path.GetTempPath();
@@ -133,5 +165,9 @@ namespace Metro_Skin_Installer
             installProgress.Value = e.ProgressPercentage/2;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

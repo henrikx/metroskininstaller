@@ -21,11 +21,11 @@ namespace Metro_Skin_Installer
             WebClient downloadFile = new WebClient();
             string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
             List<string> downloadEventArgs = new List<string>();
-            var regex = Regex.Match(source, "href=\"downloads(\\/*.*.zip)\"");
+            var regex = Regex.Match(source, @"href=""downloads(\/.*\.zip)""");
             LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
             return LatestURI;
         }
-        public static string FindSteamDir()
+        public static string FindSteamSkinDir()
         {
             using (var registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam"))
             {
@@ -40,16 +40,26 @@ namespace Metro_Skin_Installer
         }
         public static void InstallSkin(string steamDir)
         {
-            bool customStylesExists;
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles") && isPatch != "True")
+            bool customStylesExists = false;
+            if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
             {
                 customStylesExists = true;
                 File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
             }
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
             {
-                SteamSkin.ExtractAll(FindSteamDir(), ExtractExistingFileAction.OverwriteSilently);
+                SteamSkin.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
             }
+            if (customStylesExists)
+            {
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles");
+            }
+
+
+        }
+        public static void InstallPatch(string steamDir)
+        {
+            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro 4.2.4", true);
         }
         public static bool CheckSteamSkinDirectoryExists(string SteamDir)
         {
@@ -83,6 +93,43 @@ namespace Metro_Skin_Installer
                 }
             }
             return ExtrasList;
+        }
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, true);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
         }
     }
 }
