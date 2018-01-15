@@ -70,10 +70,9 @@
             this.titlebar.Controls.Add(this.line1);
             this.titlebar.Controls.Add(this.ExitButton);
             this.titlebar.Controls.Add(this.label1);
-            this.titlebar.Location = new System.Drawing.Point(0, 2);
-            this.titlebar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.titlebar.Location = new System.Drawing.Point(0, 1);
             this.titlebar.Name = "titlebar";
-            this.titlebar.Size = new System.Drawing.Size(718, 128);
+            this.titlebar.Size = new System.Drawing.Size(479, 83);
             this.titlebar.TabIndex = 1;
             this.titlebar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
             this.titlebar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseMove);
@@ -83,10 +82,9 @@
             // 
             this.line1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.line1.ForeColor = System.Drawing.Color.White;
-            this.line1.Location = new System.Drawing.Point(0, 103);
-            this.line1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.line1.Location = new System.Drawing.Point(0, 67);
             this.line1.Name = "line1";
-            this.line1.Size = new System.Drawing.Size(718, 3);
+            this.line1.Size = new System.Drawing.Size(479, 2);
             this.line1.TabIndex = 2;
             // 
             // ExitButton
@@ -99,10 +97,9 @@
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.ForeColor = System.Drawing.Color.Transparent;
             this.ExitButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitButton.Image")));
-            this.ExitButton.Location = new System.Drawing.Point(644, 0);
-            this.ExitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ExitButton.Location = new System.Drawing.Point(429, 0);
             this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(72, 34);
+            this.ExitButton.Size = new System.Drawing.Size(48, 22);
             this.ExitButton.TabIndex = 0;
             this.ExitButton.UseVisualStyleBackColor = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
@@ -112,10 +109,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(4, 49);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(3, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(350, 54);
+            this.label1.Size = new System.Drawing.Size(235, 37);
             this.label1.TabIndex = 1;
             this.label1.Text = "Metro For Steam™";
             // 
@@ -124,10 +120,9 @@
             this.title1.AutoSize = true;
             this.title1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title1.ForeColor = System.Drawing.Color.White;
-            this.title1.Location = new System.Drawing.Point(27, 14);
-            this.title1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.title1.Location = new System.Drawing.Point(18, 9);
             this.title1.Name = "title1";
-            this.title1.Size = new System.Drawing.Size(244, 45);
+            this.title1.Size = new System.Drawing.Size(159, 30);
             this.title1.TabIndex = 3;
             this.title1.Text = "Patched version";
             // 
@@ -136,10 +131,9 @@
             this.text1.AutoSize = true;
             this.text1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.text1.ForeColor = System.Drawing.Color.White;
-            this.text1.Location = new System.Drawing.Point(36, 80);
-            this.text1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.text1.Location = new System.Drawing.Point(24, 52);
             this.text1.Name = "text1";
-            this.text1.Size = new System.Drawing.Size(399, 56);
+            this.text1.Size = new System.Drawing.Size(283, 38);
             this.text1.TabIndex = 4;
             this.text1.Text = "The Metro Skin with community\r\nmade features, bug fixes and enchancements";
             // 
@@ -147,20 +141,18 @@
             // 
             this.line2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.line2.ForeColor = System.Drawing.Color.White;
-            this.line2.Location = new System.Drawing.Point(0, 62);
-            this.line2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.line2.Location = new System.Drawing.Point(0, 40);
             this.line2.Name = "line2";
-            this.line2.Size = new System.Drawing.Size(292, 3);
+            this.line2.Size = new System.Drawing.Size(195, 2);
             this.line2.TabIndex = 5;
             // 
             // line3
             // 
             this.line3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.line3.ForeColor = System.Drawing.Color.White;
-            this.line3.Location = new System.Drawing.Point(0, 226);
-            this.line3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.line3.Location = new System.Drawing.Point(0, 147);
             this.line3.Name = "line3";
-            this.line3.Size = new System.Drawing.Size(292, 3);
+            this.line3.Size = new System.Drawing.Size(195, 2);
             this.line3.TabIndex = 9;
             // 
             // label5
@@ -168,10 +160,9 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(36, 245);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(24, 159);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(305, 84);
+            this.label5.Size = new System.Drawing.Size(211, 57);
             this.label5.TabIndex = 8;
             this.label5.Text = "The original Metro Skin \r\n(Not completely compatible with \r\nthe latest Steam)";
             // 
@@ -180,10 +171,9 @@
             this.title2.AutoSize = true;
             this.title2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title2.ForeColor = System.Drawing.Color.White;
-            this.title2.Location = new System.Drawing.Point(34, 180);
-            this.title2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.title2.Location = new System.Drawing.Point(23, 117);
             this.title2.Name = "title2";
-            this.title2.Size = new System.Drawing.Size(230, 45);
+            this.title2.Size = new System.Drawing.Size(151, 30);
             this.title2.TabIndex = 7;
             this.title2.Text = "Official version";
             // 
@@ -197,10 +187,9 @@
             this.page1.Controls.Add(this.title2);
             this.page1.Controls.Add(this.line2);
             this.page1.Controls.Add(this.OfficialInstallbutton);
-            this.page1.Location = new System.Drawing.Point(0, 138);
-            this.page1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.page1.Location = new System.Drawing.Point(0, 90);
             this.page1.Name = "page1";
-            this.page1.Size = new System.Drawing.Size(718, 494);
+            this.page1.Size = new System.Drawing.Size(479, 321);
             this.page1.TabIndex = 10;
             // 
             // PatchedNextButton
@@ -214,10 +203,9 @@
             this.PatchedNextButton.ForeColor = System.Drawing.Color.White;
             this.PatchedNextButton.Image = ((System.Drawing.Image)(resources.GetObject("PatchedNextButton.Image")));
             this.PatchedNextButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PatchedNextButton.Location = new System.Drawing.Point(496, 80);
-            this.PatchedNextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PatchedNextButton.Location = new System.Drawing.Point(331, 52);
             this.PatchedNextButton.Name = "PatchedNextButton";
-            this.PatchedNextButton.Size = new System.Drawing.Size(206, 57);
+            this.PatchedNextButton.Size = new System.Drawing.Size(137, 37);
             this.PatchedNextButton.TabIndex = 2;
             this.PatchedNextButton.Text = "Next";
             this.PatchedNextButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -235,10 +223,9 @@
             this.OfficialInstallbutton.ForeColor = System.Drawing.Color.White;
             this.OfficialInstallbutton.Image = ((System.Drawing.Image)(resources.GetObject("OfficialInstallbutton.Image")));
             this.OfficialInstallbutton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.OfficialInstallbutton.Location = new System.Drawing.Point(496, 245);
-            this.OfficialInstallbutton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.OfficialInstallbutton.Location = new System.Drawing.Point(331, 159);
             this.OfficialInstallbutton.Name = "OfficialInstallbutton";
-            this.OfficialInstallbutton.Size = new System.Drawing.Size(206, 57);
+            this.OfficialInstallbutton.Size = new System.Drawing.Size(137, 37);
             this.OfficialInstallbutton.TabIndex = 6;
             this.OfficialInstallbutton.Text = "Install now";
             this.OfficialInstallbutton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -253,29 +240,26 @@
             this.page2patched.Controls.Add(this.title3);
             this.page2patched.Controls.Add(this.PatchInstallButton);
             this.page2patched.Controls.Add(this.extrasListBox);
-            this.page2patched.Location = new System.Drawing.Point(0, 138);
-            this.page2patched.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.page2patched.Location = new System.Drawing.Point(0, 90);
             this.page2patched.Name = "page2patched";
-            this.page2patched.Size = new System.Drawing.Size(718, 855);
+            this.page2patched.Size = new System.Drawing.Size(479, 556);
             this.page2patched.TabIndex = 11;
             this.page2patched.Visible = false;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(270, 223);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.progressBar1.Location = new System.Drawing.Point(180, 145);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(156, 17);
+            this.progressBar1.Size = new System.Drawing.Size(104, 11);
             this.progressBar1.TabIndex = 13;
             // 
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(0, 65);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(0, 42);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(292, 3);
+            this.label4.Size = new System.Drawing.Size(195, 2);
             this.label4.TabIndex = 12;
             // 
             // text3
@@ -283,10 +267,9 @@
             this.text3.AutoSize = true;
             this.text3.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.text3.ForeColor = System.Drawing.Color.White;
-            this.text3.Location = new System.Drawing.Point(28, 80);
-            this.text3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.text3.Location = new System.Drawing.Point(19, 52);
             this.text3.Name = "text3";
-            this.text3.Size = new System.Drawing.Size(378, 28);
+            this.text3.Size = new System.Drawing.Size(267, 19);
             this.text3.TabIndex = 9;
             this.text3.Text = "The patched version has optional features:";
             // 
@@ -295,10 +278,9 @@
             this.title3.AutoSize = true;
             this.title3.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title3.ForeColor = System.Drawing.Color.White;
-            this.title3.Location = new System.Drawing.Point(27, 14);
-            this.title3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.title3.Location = new System.Drawing.Point(18, 9);
             this.title3.Name = "title3";
-            this.title3.Size = new System.Drawing.Size(244, 45);
+            this.title3.Size = new System.Drawing.Size(159, 30);
             this.title3.TabIndex = 8;
             this.title3.Text = "Patched version";
             // 
@@ -314,10 +296,9 @@
             this.PatchInstallButton.ForeColor = System.Drawing.Color.DimGray;
             this.PatchInstallButton.Image = global::Metro_Skin_Installer.Properties.Resources.right_arrow_grey;
             this.PatchInstallButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PatchInstallButton.Location = new System.Drawing.Point(402, 388);
-            this.PatchInstallButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PatchInstallButton.Location = new System.Drawing.Point(268, 252);
             this.PatchInstallButton.Name = "PatchInstallButton";
-            this.PatchInstallButton.Size = new System.Drawing.Size(206, 57);
+            this.PatchInstallButton.Size = new System.Drawing.Size(137, 37);
             this.PatchInstallButton.TabIndex = 7;
             this.PatchInstallButton.Text = "Install now";
             this.PatchInstallButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -331,10 +312,9 @@
             this.extrasListBox.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.extrasListBox.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.extrasListBox.FormattingEnabled = true;
-            this.extrasListBox.Location = new System.Drawing.Point(78, 125);
-            this.extrasListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.extrasListBox.Location = new System.Drawing.Point(52, 81);
             this.extrasListBox.Name = "extrasListBox";
-            this.extrasListBox.Size = new System.Drawing.Size(528, 191);
+            this.extrasListBox.Size = new System.Drawing.Size(353, 116);
             this.extrasListBox.TabIndex = 0;
             // 
             // InstallerPage
@@ -345,16 +325,16 @@
             this.InstallerPage.Controls.Add(this.label2);
             this.InstallerPage.Controls.Add(this.installingTitle);
             this.InstallerPage.Controls.Add(this.installProgress);
-            this.InstallerPage.Location = new System.Drawing.Point(0, 138);
-            this.InstallerPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.InstallerPage.Location = new System.Drawing.Point(0, 90);
             this.InstallerPage.Name = "InstallerPage";
-            this.InstallerPage.Size = new System.Drawing.Size(718, 494);
+            this.InstallerPage.Size = new System.Drawing.Size(479, 321);
             this.InstallerPage.TabIndex = 12;
             this.InstallerPage.Visible = false;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Enabled = false;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkCyan;
@@ -363,10 +343,9 @@
             this.button1.ForeColor = System.Drawing.Color.DimGray;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(408, 389);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(272, 253);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(206, 57);
+            this.button1.Size = new System.Drawing.Size(137, 37);
             this.button1.TabIndex = 17;
             this.button1.Text = "Close";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -378,10 +357,9 @@
             this.CurrentWorker.AutoSize = true;
             this.CurrentWorker.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.CurrentWorker.ForeColor = System.Drawing.Color.White;
-            this.CurrentWorker.Location = new System.Drawing.Point(195, 186);
-            this.CurrentWorker.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentWorker.Location = new System.Drawing.Point(130, 121);
             this.CurrentWorker.Name = "CurrentWorker";
-            this.CurrentWorker.Size = new System.Drawing.Size(49, 30);
+            this.CurrentWorker.Size = new System.Drawing.Size(34, 20);
             this.CurrentWorker.TabIndex = 16;
             this.CurrentWorker.Text = "Idle";
             // 
@@ -390,10 +368,9 @@
             this.installLabel.AutoSize = true;
             this.installLabel.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.installLabel.ForeColor = System.Drawing.Color.White;
-            this.installLabel.Location = new System.Drawing.Point(78, 186);
-            this.installLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.installLabel.Location = new System.Drawing.Point(52, 121);
             this.installLabel.Name = "installLabel";
-            this.installLabel.Size = new System.Drawing.Size(103, 30);
+            this.installLabel.Size = new System.Drawing.Size(72, 20);
             this.installLabel.TabIndex = 15;
             this.installLabel.Text = "Installing:";
             // 
@@ -401,10 +378,9 @@
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(0, 65);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(0, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(292, 3);
+            this.label2.Size = new System.Drawing.Size(195, 2);
             this.label2.TabIndex = 14;
             // 
             // installingTitle
@@ -412,19 +388,17 @@
             this.installingTitle.AutoSize = true;
             this.installingTitle.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.installingTitle.ForeColor = System.Drawing.Color.White;
-            this.installingTitle.Location = new System.Drawing.Point(27, 14);
-            this.installingTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.installingTitle.Location = new System.Drawing.Point(18, 9);
             this.installingTitle.Name = "installingTitle";
-            this.installingTitle.Size = new System.Drawing.Size(149, 45);
+            this.installingTitle.Size = new System.Drawing.Size(97, 30);
             this.installingTitle.TabIndex = 13;
             this.installingTitle.Text = "Installing";
             // 
             // installProgress
             // 
-            this.installProgress.Location = new System.Drawing.Point(84, 245);
-            this.installProgress.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.installProgress.Location = new System.Drawing.Point(56, 159);
             this.installProgress.Name = "installProgress";
-            this.installProgress.Size = new System.Drawing.Size(530, 35);
+            this.installProgress.Size = new System.Drawing.Size(353, 23);
             this.installProgress.TabIndex = 0;
             // 
             // DownloadPatchWorker
@@ -437,16 +411,15 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(24)))), ((int)(((byte)(26)))));
-            this.ClientSize = new System.Drawing.Size(722, 635);
+            this.ClientSize = new System.Drawing.Size(481, 413);
             this.Controls.Add(this.InstallerPage);
             this.Controls.Add(this.page2patched);
             this.Controls.Add(this.page1);
             this.Controls.Add(this.titlebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.titlebar.ResumeLayout(false);
             this.titlebar.PerformLayout();

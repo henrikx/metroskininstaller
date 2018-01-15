@@ -40,10 +40,11 @@ namespace Metro_Skin_Installer
             CurrentWorker.Text = "Finished";
             button1.Enabled = true;
             button1.ForeColor = Color.White;
+            button1.Image = Properties.Resources.close_button;
         }
         private void InstallExtras()
         {
-            int incrementalProgressbarIncrease = 25/extrasListBox.CheckedItems.Count;
+            int incrementalProgressbarIncrease = 20/extrasListBox.CheckedItems.Count;
             for (int i = 0; i< extrasListBox.Items.Count;i++)
             {
                 if (extrasListBox.GetItemChecked(i))
@@ -65,6 +66,7 @@ namespace Metro_Skin_Installer
             progressBar1.Visible = false;
             PatchInstallButton.Enabled = true;
             PatchInstallButton.ForeColor = Color.White;
+            PatchInstallButton.Image = Properties.Resources.right_arrow;
         }
         private void ExitButton_Click(object sender, EventArgs e)
         {
