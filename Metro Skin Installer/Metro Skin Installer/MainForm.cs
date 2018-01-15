@@ -28,6 +28,7 @@ namespace Metro_Skin_Installer
             List<bool> InstallerArguments = e.Argument as List<bool>;
             DownloadOfficial(InstallActions.GetLatestMetro());
             InstallActions.InstallSkin(InstallActions.FindSteamSkinDir());
+            installProgress.Value += 5;
             if (InstallerArguments[0])
             {
                 CurrentWorker.Text = "Unofficial Patch";
