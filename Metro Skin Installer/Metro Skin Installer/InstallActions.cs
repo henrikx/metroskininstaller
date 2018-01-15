@@ -10,6 +10,7 @@ using System.Net;
 using System.ComponentModel;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Metro_Skin_Installer
 {
@@ -22,6 +23,10 @@ namespace Metro_Skin_Installer
             string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
             List<string> downloadEventArgs = new List<string>();
             var regex = Regex.Match(source, @"href=""downloads(\/.*\.zip)""");
+            if (!regex.Success)
+            {
+                MessageBox.Show("Could not find the latest version of Metro! This program is not updated. Download the latest version or wait for it to be updated.");
+            }
             LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
             return LatestURI;
         }
