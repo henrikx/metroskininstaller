@@ -9,3 +9,7 @@ https://github.com/henrikx/metroskininstaller/issues
 
 # Dependencies
 * .NET Framework 4.6
+
+# Credits
+* RedSigma for testing and custom repo for installer.
+* https://www.flaticon.com/packs/free-basic-ui-elements
