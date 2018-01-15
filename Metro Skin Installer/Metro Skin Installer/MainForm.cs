@@ -28,7 +28,7 @@ namespace Metro_Skin_Installer
             List<bool> InstallerArguments = e.Argument as List<bool>;
             DownloadOfficial(InstallActions.GetLatestMetro());
             InstallActions.InstallSkin(InstallActions.FindSteamSkinDir());
-            if (InstallerArguments[1])
+            if (InstallerArguments[0])
             {
                 CurrentWorker.Text = "Unofficial Patch";
                 installProgress.Value += 25;
@@ -47,7 +47,7 @@ namespace Metro_Skin_Installer
             {
                 if (extrasListBox.GetItemChecked(i))
                 {
-                    string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\patchfiles\\UPMetroSkin-installer\\manifest.txt");
+                    string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
                     string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
                     CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]) + " (" + Convert.ToString(i + 1) + "/" + extrasListBox.CheckedItems.Count + ")";
                     InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
