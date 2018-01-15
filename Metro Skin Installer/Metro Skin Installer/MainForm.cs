@@ -32,8 +32,8 @@ namespace Metro_Skin_Installer
             if (InstallerArguments[0])
             {
                 CurrentWorker.Text = "Unofficial Patch";
-                installProgress.Value += 25;
                 InstallActions.InstallPatch(InstallActions.FindSteamSkinDir());
+                installProgress.Value += 25;
                 InstallExtras();
             }
             installProgress.Value = 100;

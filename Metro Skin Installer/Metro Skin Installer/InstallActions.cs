@@ -57,7 +57,7 @@ namespace Metro_Skin_Installer
             }
             if (customStylesExists)
             {
-                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles");
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
             }
 
 
