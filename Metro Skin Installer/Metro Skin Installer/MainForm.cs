@@ -68,6 +68,7 @@ namespace Metro_Skin_Installer
             InstallActions.TempExtractPatch();
             extrasListBox.DataSource = InstallActions.DetectExtras();
             progressBar1.Visible = false;
+            extrasLoadingText.Visible = false;
             PatchInstallButton.Enabled = true;
             PatchInstallButton.ForeColor = Color.White;
             PatchInstallButton.Image = Properties.Resources.right_arrow;
