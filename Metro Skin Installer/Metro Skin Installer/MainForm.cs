@@ -44,18 +44,22 @@ namespace Metro_Skin_Installer
         }
         private void InstallExtras()
         {
-            int incrementalProgressbarIncrease = 20/extrasListBox.CheckedItems.Count;
-            for (int i = 0; i< extrasListBox.Items.Count;i++)
+            if (extrasListBox.CheckedItems.Count >= 1)
             {
-                if (extrasListBox.GetItemChecked(i))
+                int incrementalProgressbarIncrease = 20 / extrasListBox.CheckedItems.Count;
+                for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
-                    string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
-                    string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
-                    CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
-                    InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
-                    installProgress.Value += incrementalProgressbarIncrease;
+                    if (extrasListBox.GetItemChecked(i))
+                    {
+                        string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
+                        string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
+                        CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
+                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
+                        installProgress.Value += incrementalProgressbarIncrease;
+                    }
                 }
             }
+
         }
         private void DownloadPatch_DoWork(object sender, DoWorkEventArgs e) //When select extras window is activated
         {
@@ -147,7 +151,10 @@ namespace Metro_Skin_Installer
             System.Uri uri = new System.Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
             PatchDownloader.DownloadProgressChanged += new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
             PatchDownloader.DownloadFileAsync(uri, TempDir+"\\installer.zip");
-            while (PatchDownloader.IsBusy) {  }
+            while (PatchDownloader.IsBusy)
+            {
+                Thread.Sleep(500);
+            }
 
         }
         private void PatchDownloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -165,7 +172,10 @@ namespace Metro_Skin_Installer
             WebClient Downloader = new WebClient();
             Downloader.DownloadProgressChanged += new DownloadProgressChangedEventHandler(Downloader_DownloadProgressChanged);
             Downloader.DownloadFileAsync(URI, TempDir + "\\officialskin.zip");
-            while (Downloader.IsBusy) { }
+            while (Downloader.IsBusy)
+            {
+                Thread.Sleep(500);
+            }
         }
         private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         { 

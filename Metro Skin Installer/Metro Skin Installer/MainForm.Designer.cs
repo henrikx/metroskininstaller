@@ -59,6 +59,7 @@
             this.installProgress = new System.Windows.Forms.ProgressBar();
             this.DownloadPatchWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadWorker = new System.ComponentModel.BackgroundWorker();
+            this.extrasLoadingText = new System.Windows.Forms.Label();
             this.titlebar.SuspendLayout();
             this.page1.SuspendLayout();
             this.page2patched.SuspendLayout();
@@ -234,6 +235,7 @@
             // 
             // page2patched
             // 
+            this.page2patched.Controls.Add(this.extrasLoadingText);
             this.page2patched.Controls.Add(this.progressBar1);
             this.page2patched.Controls.Add(this.label4);
             this.page2patched.Controls.Add(this.text3);
@@ -310,7 +312,7 @@
             this.extrasListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
             this.extrasListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.extrasListBox.Font = new System.Drawing.Font("Segoe UI", 9.25F);
-            this.extrasListBox.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.extrasListBox.ForeColor = System.Drawing.Color.White;
             this.extrasListBox.FormattingEnabled = true;
             this.extrasListBox.Location = new System.Drawing.Point(52, 81);
             this.extrasListBox.Name = "extrasListBox";
@@ -409,6 +411,18 @@
             // 
             this.DownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadWorker_DoWork_1);
             // 
+            // extrasLoadingText
+            // 
+            this.extrasLoadingText.AutoSize = true;
+            this.extrasLoadingText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
+            this.extrasLoadingText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.extrasLoadingText.ForeColor = System.Drawing.Color.White;
+            this.extrasLoadingText.Location = new System.Drawing.Point(180, 125);
+            this.extrasLoadingText.Name = "extrasLoadingText";
+            this.extrasLoadingText.Size = new System.Drawing.Size(103, 17);
+            this.extrasLoadingText.TabIndex = 14;
+            this.extrasLoadingText.Text = "Loading Extras...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,7 +434,9 @@
             this.Controls.Add(this.page1);
             this.Controls.Add(this.titlebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
+            this.Text = "Metro For Steam Installer";
             this.titlebar.ResumeLayout(false);
             this.titlebar.PerformLayout();
             this.page1.ResumeLayout(false);
@@ -465,6 +481,7 @@
         private System.ComponentModel.BackgroundWorker DownloadPatchWorker;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker DownloadWorker;
+        private System.Windows.Forms.Label extrasLoadingText;
     }
 }
 
