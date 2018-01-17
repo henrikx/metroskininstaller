@@ -46,10 +46,15 @@ namespace Metro_Skin_Installer
         public static void InstallSkin(string steamDir)
         {
             bool customStylesExists = false;
+
             if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
             {
                 customStylesExists = true;
                 File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
+            }
+            if (Directory.Exists(steamDir + "\\Metro 4.2.4"))
+            {
+                Directory.Delete(steamDir + "\\Metro 4.2.4", true);
             }
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
             {
