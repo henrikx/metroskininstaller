@@ -36,6 +36,8 @@ namespace Metro_Skin_Installer
                 installProgress.Value += 25;
                 InstallExtras();
             }
+            CurrentWorker.Text = "Cleaning Up";
+            InstallActions.Cleanup();
             installProgress.Value = 100;
             CurrentWorker.Text = "Finished";
             button1.Enabled = true;
@@ -75,6 +77,7 @@ namespace Metro_Skin_Installer
         }
         private void ExitButton_Click(object sender, EventArgs e)
         {
+            InstallActions.Cleanup();
             Application.Exit();
         }
         #region dragabbletitlebar
