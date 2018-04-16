@@ -19,3 +19,4 @@ C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Insta
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Updater Tool.exe.config
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Updater Tool.exe
 C:\lazarus\source\repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\bin\Debug\Metro Skin Updater Tool.pdb
+C:\Users\Henrik\source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Debug\Metro Skin Installer.csproj.CopyComplete

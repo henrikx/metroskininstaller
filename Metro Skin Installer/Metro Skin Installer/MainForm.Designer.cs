@@ -44,6 +44,7 @@
             this.PatchedNextButton = new System.Windows.Forms.Button();
             this.OfficialInstallbutton = new System.Windows.Forms.Button();
             this.page2patched = new System.Windows.Forms.Panel();
+            this.extrasLoadingText = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.text3 = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@
             this.installProgress = new System.Windows.Forms.ProgressBar();
             this.DownloadPatchWorker = new System.ComponentModel.BackgroundWorker();
             this.DownloadWorker = new System.ComponentModel.BackgroundWorker();
-            this.extrasLoadingText = new System.Windows.Forms.Label();
             this.titlebar.SuspendLayout();
             this.page1.SuspendLayout();
             this.page2patched.SuspendLayout();
@@ -121,7 +121,7 @@
             this.title1.AutoSize = true;
             this.title1.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title1.ForeColor = System.Drawing.Color.White;
-            this.title1.Location = new System.Drawing.Point(18, 9);
+            this.title1.Location = new System.Drawing.Point(18, 39);
             this.title1.Name = "title1";
             this.title1.Size = new System.Drawing.Size(159, 30);
             this.title1.TabIndex = 3;
@@ -132,7 +132,7 @@
             this.text1.AutoSize = true;
             this.text1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.text1.ForeColor = System.Drawing.Color.White;
-            this.text1.Location = new System.Drawing.Point(24, 52);
+            this.text1.Location = new System.Drawing.Point(24, 82);
             this.text1.Name = "text1";
             this.text1.Size = new System.Drawing.Size(283, 38);
             this.text1.TabIndex = 4;
@@ -142,7 +142,7 @@
             // 
             this.line2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.line2.ForeColor = System.Drawing.Color.White;
-            this.line2.Location = new System.Drawing.Point(0, 40);
+            this.line2.Location = new System.Drawing.Point(0, 70);
             this.line2.Name = "line2";
             this.line2.Size = new System.Drawing.Size(195, 2);
             this.line2.TabIndex = 5;
@@ -151,9 +151,9 @@
             // 
             this.line3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.line3.ForeColor = System.Drawing.Color.White;
-            this.line3.Location = new System.Drawing.Point(0, 147);
+            this.line3.Location = new System.Drawing.Point(0, 226);
             this.line3.Name = "line3";
-            this.line3.Size = new System.Drawing.Size(195, 2);
+            this.line3.Size = new System.Drawing.Size(479, 1);
             this.line3.TabIndex = 9;
             // 
             // label5
@@ -161,7 +161,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(24, 159);
+            this.label5.Location = new System.Drawing.Point(24, 233);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(211, 57);
             this.label5.TabIndex = 8;
@@ -170,11 +170,11 @@
             // title2
             // 
             this.title2.AutoSize = true;
-            this.title2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title2.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.title2.ForeColor = System.Drawing.Color.White;
-            this.title2.Location = new System.Drawing.Point(23, 117);
+            this.title2.Location = new System.Drawing.Point(19, 200);
             this.title2.Name = "title2";
-            this.title2.Size = new System.Drawing.Size(151, 30);
+            this.title2.Size = new System.Drawing.Size(114, 21);
             this.title2.TabIndex = 7;
             this.title2.Text = "Official version";
             // 
@@ -204,7 +204,7 @@
             this.PatchedNextButton.ForeColor = System.Drawing.Color.White;
             this.PatchedNextButton.Image = ((System.Drawing.Image)(resources.GetObject("PatchedNextButton.Image")));
             this.PatchedNextButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PatchedNextButton.Location = new System.Drawing.Point(331, 52);
+            this.PatchedNextButton.Location = new System.Drawing.Point(331, 82);
             this.PatchedNextButton.Name = "PatchedNextButton";
             this.PatchedNextButton.Size = new System.Drawing.Size(137, 37);
             this.PatchedNextButton.TabIndex = 2;
@@ -220,15 +220,14 @@
             this.OfficialInstallbutton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.OfficialInstallbutton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkCyan;
             this.OfficialInstallbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OfficialInstallbutton.Font = new System.Drawing.Font("Segoe UI", 13.6F);
-            this.OfficialInstallbutton.ForeColor = System.Drawing.Color.White;
-            this.OfficialInstallbutton.Image = ((System.Drawing.Image)(resources.GetObject("OfficialInstallbutton.Image")));
+            this.OfficialInstallbutton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OfficialInstallbutton.ForeColor = System.Drawing.Color.Silver;
             this.OfficialInstallbutton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.OfficialInstallbutton.Location = new System.Drawing.Point(331, 159);
+            this.OfficialInstallbutton.Location = new System.Drawing.Point(379, 252);
             this.OfficialInstallbutton.Name = "OfficialInstallbutton";
-            this.OfficialInstallbutton.Size = new System.Drawing.Size(137, 37);
+            this.OfficialInstallbutton.Size = new System.Drawing.Size(89, 23);
             this.OfficialInstallbutton.TabIndex = 6;
-            this.OfficialInstallbutton.Text = "Install now";
+            this.OfficialInstallbutton.Text = "Install official";
             this.OfficialInstallbutton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.OfficialInstallbutton.UseVisualStyleBackColor = false;
             this.OfficialInstallbutton.Click += new System.EventHandler(this.OfficialInstallbutton_Click);
@@ -247,6 +246,18 @@
             this.page2patched.Size = new System.Drawing.Size(479, 556);
             this.page2patched.TabIndex = 11;
             this.page2patched.Visible = false;
+            // 
+            // extrasLoadingText
+            // 
+            this.extrasLoadingText.AutoSize = true;
+            this.extrasLoadingText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
+            this.extrasLoadingText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.extrasLoadingText.ForeColor = System.Drawing.Color.White;
+            this.extrasLoadingText.Location = new System.Drawing.Point(180, 125);
+            this.extrasLoadingText.Name = "extrasLoadingText";
+            this.extrasLoadingText.Size = new System.Drawing.Size(103, 17);
+            this.extrasLoadingText.TabIndex = 14;
+            this.extrasLoadingText.Text = "Loading Extras...";
             // 
             // progressBar1
             // 
@@ -411,27 +422,15 @@
             // 
             this.DownloadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadWorker_DoWork_1);
             // 
-            // extrasLoadingText
-            // 
-            this.extrasLoadingText.AutoSize = true;
-            this.extrasLoadingText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
-            this.extrasLoadingText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.extrasLoadingText.ForeColor = System.Drawing.Color.White;
-            this.extrasLoadingText.Location = new System.Drawing.Point(180, 125);
-            this.extrasLoadingText.Name = "extrasLoadingText";
-            this.extrasLoadingText.Size = new System.Drawing.Size(103, 17);
-            this.extrasLoadingText.TabIndex = 14;
-            this.extrasLoadingText.Text = "Loading Extras...";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(24)))), ((int)(((byte)(26)))));
             this.ClientSize = new System.Drawing.Size(481, 413);
+            this.Controls.Add(this.page1);
             this.Controls.Add(this.InstallerPage);
             this.Controls.Add(this.page2patched);
-            this.Controls.Add(this.page1);
             this.Controls.Add(this.titlebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -20,3 +20,4 @@ C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin 
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Updater Tool.exe
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Updater Tool.pdb
 C:\Users\Henrik\Source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.csprojResolveAssemblyReference.cache
+C:\Users\Henrik\source\Repos\metroskininstaller\Metro Skin Installer\Metro Skin Installer\obj\Release\Metro Skin Installer.csproj.CopyComplete
