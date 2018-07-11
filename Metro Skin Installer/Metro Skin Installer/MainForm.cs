@@ -20,19 +20,53 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-
+            if (!hasPerimssion(FindSteamSkinDir()))
+            {
+                Environment.Exit(0);
+            }
         }
+
+        public static bool hasPerimssion(string dir)
+        {
+            try
+            {
+                File.CreateText(dir + "\\chkPerm").Close();
+            }
+            catch (System.UnauthorizedAccessException e)
+            {
+                MessageBox.Show("Access to " + dir + " is denied. Please open the app with admin rights.",
+                    System.Reflection.Assembly.GetCallingAssembly().GetName().Name,
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                return false;
+            }
+
+            File.Delete(dir + "\\chkPerm");
+            return true;
+        }
+
+
         private void DownloadWorker_DoWork_1(object sender, DoWorkEventArgs e) //When installwindow is activated
         {
             CurrentWorker.Text = "Base Skin";
             List<bool> InstallerArguments = e.Argument as List<bool>;
+
             DownloadOfficial(InstallActions.GetLatestMetro());
-            InstallActions.InstallSkin(InstallActions.FindSteamSkinDir());
+
+            if (InstallActions.err_ARCHIVE)
+            {
+                page1.Visible = true;
+                InstallerPage.Visible = false;
+                return;
+            }
+            
+            InstallActions.InstallSkin(FindSteamSkinDir());
+
             installProgress.Value += 5;
             if (InstallerArguments[0])
             {
                 CurrentWorker.Text = "Unofficial Patch";
-                InstallActions.InstallPatch(InstallActions.FindSteamSkinDir());
+                InstallActions.InstallPatch(FindSteamSkinDir());
                 installProgress.Value += 25;
                 InstallExtras();
             }
@@ -56,7 +90,7 @@ namespace Metro_Skin_Installer
                         string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
                         string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
                         CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
-                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, InstallActions.FindSteamSkinDir() + "\\Metro 4.2.4", true);
+                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, FindSteamSkinDir() + "\\Metro 4.2.4", true);
                         installProgress.Value += incrementalProgressbarIncrease;
                     }
                 }
@@ -68,6 +102,14 @@ namespace Metro_Skin_Installer
             DownloadPatch();
             progressBar1.Value = 100;
             InstallActions.TempExtractPatch();
+
+            if (InstallActions.err_ARCHIVE)
+            {
+                page1.Visible = true;
+                page2patched.Visible = false;
+                return;
+            }
+            
             extrasListBox.DataSource = InstallActions.DetectExtras();
             progressBar1.Visible = false;
             extrasLoadingText.Visible = false;
@@ -107,7 +149,21 @@ namespace Metro_Skin_Installer
         }
         #endregion
 
-        string SteamSkinPath = InstallActions.FindSteamSkinDir();
+        string SteamSkinPath = FindSteamSkinDir();
+
+        public static string FindSteamSkinDir()
+        {
+            using (var registryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam"))
+            {
+                string filePath = null;
+                var regFilePath = registryKey?.GetValue("SteamPath");
+                if (regFilePath != null)
+                {
+                    filePath = System.IO.Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
+                }
+                return filePath;
+            }
+        }
 
         #region Page1
         private void PatchedNextButton_Click(object sender, EventArgs e)
@@ -119,13 +175,13 @@ namespace Metro_Skin_Installer
                 DownloadPatchWorker.RunWorkerAsync();
             } else
             {
-                MessageBox.Show("No Steam Skin directory found.");
+               MessageBox.Show("No Steam Skin directory found.");
             }
 
         }
         private void OfficialInstallbutton_Click(object sender, EventArgs e)
         {
-            if (InstallActions.CheckSteamSkinDirectoryExists(InstallActions.FindSteamSkinDir()))
+            if (InstallActions.CheckSteamSkinDirectoryExists(FindSteamSkinDir()))
             {
                 bool isPatch = false;
                 List<bool> InstallerArguments = new List<bool>();
@@ -152,14 +208,17 @@ namespace Metro_Skin_Installer
         {
             string TempDir = Path.GetTempPath();
             WebClient PatchDownloader = new WebClient();
+
             System.Uri uri = new System.Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
-            PatchDownloader.DownloadProgressChanged += new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
-            PatchDownloader.DownloadFileAsync(uri, TempDir+"\\installer.zip");
+
+            DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
+            PatchDownloader.DownloadProgressChanged += progressHandler;
+
+            PatchDownloader.DownloadFileAsync(uri, TempDir + "\\installer.zip");
             while (PatchDownloader.IsBusy)
             {
-                Thread.Sleep(500);
+               Thread.Sleep(500);
             }
-
         }
         private void PatchDownloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -169,12 +228,15 @@ namespace Metro_Skin_Installer
             }
         }
 
-
+ 
         private void DownloadOfficial(System.Uri URI)
         {
             string TempDir = Path.GetTempPath();
             WebClient Downloader = new WebClient();
-            Downloader.DownloadProgressChanged += new DownloadProgressChangedEventHandler(Downloader_DownloadProgressChanged);
+ 
+            DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(Downloader_DownloadProgressChanged);
+            Downloader.DownloadProgressChanged += progressHandler;
+
             Downloader.DownloadFileAsync(URI, TempDir + "\\officialskin.zip");
             while (Downloader.IsBusy)
             {
