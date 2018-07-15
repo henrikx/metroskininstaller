@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using Microsoft.Win32;
-using System.Threading;
 using System.Net;
-using System.ComponentModel;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -20,7 +14,19 @@ namespace Metro_Skin_Installer
         {
             System.Uri LatestURI = new System.Uri("https://google.com/");
             WebClient downloadFile = new WebClient();
-            string source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
+            string source = "";
+            try
+            {
+                source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
+                err_ARCHIVE = false;
+            }
+            catch (System.Net.WebException e)
+            {
+                MessageBox.Show(e.Message); // No internet
+                err_ARCHIVE = true;
+                return new System.Uri("http://dead.com");
+            }
+
             List<string> downloadEventArgs = new List<string>();
             var regex = Regex.Match(source, @"href=""downloads(\/.*\.zip)""");
             if (!regex.Success)
@@ -30,19 +36,7 @@ namespace Metro_Skin_Installer
             LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
             return LatestURI;
         }
-        public static string FindSteamSkinDir()
-        {
-            using (var registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Valve\\Steam"))
-            {
-                string filePath = null;
-                var regFilePath = registryKey?.GetValue("SteamPath");
-                if (regFilePath != null)
-                {
-                    filePath = Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
-                }
-                return filePath;
-            }
-        }
+
         public static void InstallSkin(string steamDir)
         {
             bool customStylesExists = false;
@@ -56,10 +50,12 @@ namespace Metro_Skin_Installer
             {
                 Directory.Delete(steamDir + "\\Metro 4.2.4", true);
             }
+
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
             {
                 SteamSkin.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
             }
+
             if (customStylesExists)
             {
                 File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
@@ -73,19 +69,33 @@ namespace Metro_Skin_Installer
         }
         public static bool CheckSteamSkinDirectoryExists(string SteamDir)
         {
-            bool DirExists = false;
-            if (Directory.Exists(SteamDir))
-            {
-                DirExists = true;
-            }
-            return DirExists;
+            return Directory.Exists(SteamDir);
         }
 
         public static void TempExtractPatch()
         {
-            using (ZipFile patchZip = ZipFile.Read(Path.GetTempPath() + "installer.zip"))
+            string path = Path.GetTempPath() + "installer.zip";
+
+            if (File.Exists(path))
             {
-                patchZip.ExtractAll(Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);
+                try
+                {
+                    using (ZipFile patchZip = ZipFile.Read(path))
+                    {
+                        patchZip.ExtractAll(Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);
+                    }
+                    err_ARCHIVE = false;
+                }
+                catch (Ionic.Zip.ZipException e)
+                {
+                    MessageBox.Show("Downloaded archive seems corrupt: " + e.Message);
+                    err_ARCHIVE = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Missing archive:\n" + path);
+                err_ARCHIVE = true;
             }
         }
         public static List<string> DetectExtras()
@@ -147,5 +157,7 @@ namespace Metro_Skin_Installer
                 }
             }
         }
+
+        public static bool err_ARCHIVE = false;
     }
 }
