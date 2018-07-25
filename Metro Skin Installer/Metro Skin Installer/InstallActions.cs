@@ -14,6 +14,7 @@ namespace Metro_Skin_Installer
         {
             System.Uri LatestURI = new System.Uri("https://google.com/");
             WebClient downloadFile = new WebClient();
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
             string source = "";
             try
             {
