@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Net;
@@ -20,20 +16,21 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            if (!hasPerimssion(FindSteamSkinDir()))
+            if (!hasPermission(FindSteamSkinDir()))
             {
                 Environment.Exit(0);
             }
         }
 
-        public static bool hasPerimssion(string dir)
+        public static bool hasPermission(string dir)
         {
             try
             {
                 File.CreateText(dir + "\\chkPerm").Close();
             }
-            catch (System.UnauthorizedAccessException e)
+            catch (UnauthorizedAccessException e)
             {
+                Console.WriteLine("{0} Exception caught.", e);
                 MessageBox.Show("Access to " + dir + " is denied. Please open the app with admin rights.",
                     System.Reflection.Assembly.GetCallingAssembly().GetName().Name,
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
