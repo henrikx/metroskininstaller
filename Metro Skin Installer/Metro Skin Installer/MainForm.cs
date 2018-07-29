@@ -17,6 +17,11 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            if(SteamSkinPath == null)
+            {
+                MessageBox.Show("Steam couldn't be found. \nPlease install steam or reinstall if already installed.");
+                Environment.Exit(0);
+            }
             if (!hasPermission(SteamSkinPath))
             {
                 Environment.Exit(0);
