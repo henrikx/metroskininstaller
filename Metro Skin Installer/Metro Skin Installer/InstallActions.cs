@@ -41,12 +41,20 @@ namespace Metro_Skin_Installer
         public static void InstallSkin(string steamDir)
         {
             bool customStylesExists = false;
+            bool extrasFileExists = false;
 
             if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
             {
                 customStylesExists = true;
                 File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
             }
+
+            if (File.Exists(steamDir + "\\Metro 4.2.4\\extras.txt"))
+            {
+                extrasFileExists = true;
+                File.Copy(steamDir + "\\Metro 4.2.4\\extras.txt", Path.GetTempPath() + "extras.txt", true);
+            }
+
             if (Directory.Exists(steamDir + "\\Metro 4.2.4"))
             {
                 Directory.Delete(steamDir + "\\Metro 4.2.4", true);
@@ -60,6 +68,11 @@ namespace Metro_Skin_Installer
             if (customStylesExists)
             {
                 File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
+            }
+
+            if (extrasFileExists)
+            {
+                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro 4.2.4\\extras.txt", true);
             }
 
 
