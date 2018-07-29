@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Metro_Skin_Installer
 {
@@ -20,20 +17,21 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            if (!hasPerimssion(FindSteamSkinDir()))
+            if (!hasPermission(SteamSkinPath))
             {
                 Environment.Exit(0);
             }
         }
 
-        public static bool hasPerimssion(string dir)
+        public static bool hasPermission(string dir)
         {
             try
             {
                 File.CreateText(dir + "\\chkPerm").Close();
             }
-            catch (System.UnauthorizedAccessException e)
+            catch (UnauthorizedAccessException e)
             {
+                Console.WriteLine("{0} Exception caught.", e);
                 MessageBox.Show("Access to " + dir + " is denied. Please open the app with admin rights.",
                     System.Reflection.Assembly.GetCallingAssembly().GetName().Name,
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -60,13 +58,13 @@ namespace Metro_Skin_Installer
                 return;
             }
             
-            InstallActions.InstallSkin(FindSteamSkinDir());
+            InstallActions.InstallSkin(SteamSkinPath);
 
             installProgress.Value += 5;
             if (InstallerArguments[0])
             {
                 CurrentWorker.Text = "Unofficial Patch";
-                InstallActions.InstallPatch(FindSteamSkinDir());
+                InstallActions.InstallPatch(SteamSkinPath);
                 installProgress.Value += 25;
                 InstallExtras();
             }
@@ -83,17 +81,21 @@ namespace Metro_Skin_Installer
             if (extrasListBox.CheckedItems.Count >= 1)
             {
                 int incrementalProgressbarIncrease = 20 / extrasListBox.CheckedItems.Count;
+                string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
+                List<String> checkedExtras = new List<String>();
                 for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
                     if (extrasListBox.GetItemChecked(i))
                     {
-                        string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
                         string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
                         CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
-                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, FindSteamSkinDir() + "\\Metro 4.2.4", true);
+                        checkedExtras.Add(CurrentWorker.Text);
+                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + "\\Metro 4.2.4", true);
                         installProgress.Value += incrementalProgressbarIncrease;
                     }
                 }
+                if (saveExtrasCheckBox.Checked)
+                    File.WriteAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt", checkedExtras);
             }
 
         }
@@ -111,8 +113,20 @@ namespace Metro_Skin_Installer
             }
             
             extrasListBox.DataSource = InstallActions.DetectExtras();
+            if (File.Exists(SteamSkinPath + "\\Metro 4.2.4\\extras.txt"))
+            {
+                string[] savedExtras = File.ReadAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt");
+                for (int i = 0; i < extrasListBox.Items.Count; i++)
+                {
+                    if (savedExtras.Contains(extrasListBox.Items[i]))
+                        extrasListBox.SetItemChecked(i, true);
+                }
+                if (savedExtras.Length > 0)
+                    saveExtrasCheckBox.Checked = true;
+            }
             progressBar1.Visible = false;
             extrasLoadingText.Visible = false;
+            saveExtrasCheckBox.Invoke((MethodInvoker)(() => { saveExtrasCheckBox.Visible = true; }));
             PatchInstallButton.Enabled = true;
             PatchInstallButton.ForeColor = Color.White;
             PatchInstallButton.Image = Properties.Resources.right_arrow;
@@ -181,7 +195,7 @@ namespace Metro_Skin_Installer
         }
         private void OfficialInstallbutton_Click(object sender, EventArgs e)
         {
-            if (InstallActions.CheckSteamSkinDirectoryExists(FindSteamSkinDir()))
+            if (InstallActions.CheckSteamSkinDirectoryExists(SteamSkinPath))
             {
                 bool isPatch = false;
                 List<bool> InstallerArguments = new List<bool>();

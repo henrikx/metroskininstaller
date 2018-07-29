@@ -44,6 +44,7 @@
             this.PatchedNextButton = new System.Windows.Forms.Button();
             this.OfficialInstallbutton = new System.Windows.Forms.Button();
             this.page2patched = new System.Windows.Forms.Panel();
+            this.saveExtrasCheckBox = new System.Windows.Forms.CheckBox();
             this.extrasLoadingText = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
@@ -234,6 +235,7 @@
             // 
             // page2patched
             // 
+            this.page2patched.Controls.Add(this.saveExtrasCheckBox);
             this.page2patched.Controls.Add(this.extrasLoadingText);
             this.page2patched.Controls.Add(this.progressBar1);
             this.page2patched.Controls.Add(this.label4);
@@ -246,6 +248,18 @@
             this.page2patched.Size = new System.Drawing.Size(479, 556);
             this.page2patched.TabIndex = 11;
             this.page2patched.Visible = false;
+            // 
+            // saveExtrasCheckBox
+            // 
+            this.saveExtrasCheckBox.AutoSize = true;
+            this.saveExtrasCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.25F);
+            this.saveExtrasCheckBox.ForeColor = System.Drawing.Color.White;
+            this.saveExtrasCheckBox.Location = new System.Drawing.Point(52, 200);
+            this.saveExtrasCheckBox.Name = "saveExtras";
+            this.saveExtrasCheckBox.Size = new System.Drawing.Size(145, 21);
+            this.saveExtrasCheckBox.TabIndex = 15;
+            this.saveExtrasCheckBox.Text = "Save selected extras";
+            this.saveExtrasCheckBox.Visible = false;
             // 
             // extrasLoadingText
             // 
@@ -481,6 +495,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker DownloadWorker;
         private System.Windows.Forms.Label extrasLoadingText;
+        private System.Windows.Forms.CheckBox saveExtrasCheckBox;
     }
 }
 
