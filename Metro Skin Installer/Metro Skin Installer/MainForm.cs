@@ -178,7 +178,7 @@ namespace Metro_Skin_Installer
                 var regFilePath = registryKey?.GetValue("SteamPath");
                 if (regFilePath != null)
                 {
-                    filePath = System.IO.Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
+                    filePath = Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
                 }
                 return filePath;
             }
@@ -228,7 +228,7 @@ namespace Metro_Skin_Installer
             string TempDir = Path.GetTempPath();
             WebClient PatchDownloader = new WebClient();
 
-            System.Uri uri = new System.Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
+            Uri uri = new Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
 
             DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
             PatchDownloader.DownloadProgressChanged += progressHandler;
@@ -248,7 +248,7 @@ namespace Metro_Skin_Installer
         }
 
  
-        private void DownloadOfficial(System.Uri URI)
+        private void DownloadOfficial(Uri URI)
         {
             string TempDir = Path.GetTempPath();
             WebClient Downloader = new WebClient();
