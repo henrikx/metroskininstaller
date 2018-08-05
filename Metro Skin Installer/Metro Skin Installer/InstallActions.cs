@@ -10,6 +10,7 @@ namespace Metro_Skin_Installer
 {
     class InstallActions
     {
+        const string SkinFolder = "\\"+"MetroSkin";
         public static System.Uri GetLatestMetro()
         {
             System.Uri LatestURI = new System.Uri("https://google.com/");
@@ -43,43 +44,67 @@ namespace Metro_Skin_Installer
             bool customStylesExists = false;
             bool extrasFileExists = false;
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
+            if (File.Exists(steamDir + SkinFolder + "\\custom.styles"))
             {
                 customStylesExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
+                File.Copy(steamDir + SkinFolder + "\\custom.styles", Path.GetTempPath() + "custom.styles", true);
             }
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\extras.txt"))
+            if (File.Exists(steamDir + SkinFolder + "\\extras.txt"))
             {
                 extrasFileExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\extras.txt", Path.GetTempPath() + "extras.txt", true);
+                File.Copy(steamDir + SkinFolder+"\\extras.txt", Path.GetTempPath() + "extras.txt", true);
             }
 
-            if (Directory.Exists(steamDir + "\\Metro 4.2.4"))
+            if (Directory.Exists(steamDir + SkinFolder))
             {
-                Directory.Delete(steamDir + "\\Metro 4.2.4", true);
+                Directory.Delete(steamDir + SkinFolder, true);
             }
 
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
-            {
-                SteamSkin.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
+            { 
+                SteamSkin.ExtractAll(Path.GetTempPath() + "\\MetroSkinTemp", ExtractExistingFileAction.OverwriteSilently);
             }
-
+            string TempSkinDir = FindSkinDir(Path.GetTempPath() + "\\MetroSkinTemp");
+            if (TempSkinDir == null)
+            {
+                TempSkinDir = Path.GetTempPath() + "\\MetroSkinTemp";
+            }
+            DirectoryCopy(TempSkinDir, steamDir + SkinFolder, true);
             if (customStylesExists)
             {
-                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + SkinFolder + "\\custom.styles", true);
             }
 
             if (extrasFileExists)
             {
-                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro 4.2.4\\extras.txt", true);
+                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + SkinFolder + "\\extras.txt", true);
             }
 
 
         }
+        private static string FindSkinDir(string DirectoryToLookIn)
+        {
+            string SkinDir = null;
+            DirectoryInfo dir = new DirectoryInfo(DirectoryToLookIn);
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                if (subdir.FullName.Contains("Metro"))
+                {
+                    SkinDir = subdir.FullName;
+                    break;
+                }
+                else
+                {
+                    SkinDir = FindSkinDir(subdir.FullName);
+                }
+            }
+            return SkinDir;
+        }
         public static void InstallPatch(string steamDir)
         {
-            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro 4.2.4", true);
+            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + SkinFolder, true);
         }
         public static bool CheckSteamSkinDirectoryExists(string SteamDir)
         {
@@ -133,6 +158,7 @@ namespace Metro_Skin_Installer
             if (File.Exists(Path.GetTempPath() + "installer.zip")) { File.Delete(Path.GetTempPath() + "installer.zip"); }
             if (File.Exists(Path.GetTempPath() + "officialskin.zip")) { File.Delete(Path.GetTempPath() + "officialskin.zip"); }
             if (Directory.Exists(Path.GetTempPath() + "UPMetroSkin-installer")) { Directory.Delete(Path.GetTempPath() + "UPMetroSkin-installer", true); }
+            if (Directory.Exists(Path.GetTempPath() + "MetroSkinTemp")) { Directory.Delete(Path.GetTempPath() + "MetroSkinTemp", true); }
         }
         public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
