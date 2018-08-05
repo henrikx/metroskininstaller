@@ -95,12 +95,12 @@ namespace Metro_Skin_Installer
                         string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
                         CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
                         checkedExtras.Add(CurrentWorker.Text);
-                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + "\\Metro 4.2.4", true);
+                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + "\\Metro", true);
                         installProgress.Value += incrementalProgressbarIncrease;
                     }
                 }
                 if (saveExtrasCheckBox.Checked)
-                    File.WriteAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt", checkedExtras);
+                    File.WriteAllLines(SteamSkinPath + "\\Metro\\extras.txt", checkedExtras);
             }
 
         }
@@ -118,9 +118,9 @@ namespace Metro_Skin_Installer
             }
             
             extrasListBox.DataSource = InstallActions.DetectExtras();
-            if (File.Exists(SteamSkinPath + "\\Metro 4.2.4\\extras.txt"))
+            if (File.Exists(SteamSkinPath + "\\Metro\\extras.txt"))
             {
-                string[] savedExtras = File.ReadAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt");
+                string[] savedExtras = File.ReadAllLines(SteamSkinPath + "\\Metro\\extras.txt");
                 for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
                     if (savedExtras.Contains(extrasListBox.Items[i]))
@@ -178,7 +178,7 @@ namespace Metro_Skin_Installer
                 var regFilePath = registryKey?.GetValue("SteamPath");
                 if (regFilePath != null)
                 {
-                    filePath = System.IO.Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
+                    filePath = Path.Combine(regFilePath.ToString().Replace(@"/", @"\"), "skins");
                 }
                 return filePath;
             }
@@ -228,7 +228,7 @@ namespace Metro_Skin_Installer
             string TempDir = Path.GetTempPath();
             WebClient PatchDownloader = new WebClient();
 
-            System.Uri uri = new System.Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
+            Uri uri = new Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
 
             DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
             PatchDownloader.DownloadProgressChanged += progressHandler;
@@ -248,7 +248,7 @@ namespace Metro_Skin_Installer
         }
 
  
-        private void DownloadOfficial(System.Uri URI)
+        private void DownloadOfficial(Uri URI)
         {
             string TempDir = Path.GetTempPath();
             WebClient Downloader = new WebClient();

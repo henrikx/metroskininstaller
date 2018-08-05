@@ -10,22 +10,22 @@ namespace Metro_Skin_Installer
 {
     class InstallActions
     {
-        public static System.Uri GetLatestMetro()
+        public static Uri GetLatestMetro()
         {
-            System.Uri LatestURI = new System.Uri("https://google.com/");
+            Uri LatestURI = new Uri("https://google.com/");
             WebClient downloadFile = new WebClient();
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string source = "";
             try
             {
                 source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
                 err_ARCHIVE = false;
             }
-            catch (System.Net.WebException e)
+            catch (WebException e)
             {
                 MessageBox.Show(e.Message); // No internet
                 err_ARCHIVE = true;
-                return new System.Uri("http://dead.com");
+                return new Uri("http://dead.com");
             }
 
             List<string> downloadEventArgs = new List<string>();
@@ -34,7 +34,7 @@ namespace Metro_Skin_Installer
             {
                 MessageBox.Show("Could not find the latest version of Metro! This program is not updated. Download the latest version or wait for it to be updated.");
             }
-            LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
+            LatestURI = new Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
             return LatestURI;
         }
 
@@ -43,43 +43,43 @@ namespace Metro_Skin_Installer
             bool customStylesExists = false;
             bool extrasFileExists = false;
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
+            if (File.Exists(steamDir + "\\Metro\\custom.styles"))
             {
                 customStylesExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
+                File.Copy(steamDir + "\\Metro\\custom.styles", Path.GetTempPath() + "custom.styles", true);
             }
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\extras.txt"))
+            if (File.Exists(steamDir + "\\Metro\\extras.txt"))
             {
                 extrasFileExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\extras.txt", Path.GetTempPath() + "extras.txt", true);
+                File.Copy(steamDir + "\\Metro\\extras.txt", Path.GetTempPath() + "extras.txt", true);
             }
 
-            if (Directory.Exists(steamDir + "\\Metro 4.2.4"))
+            if (Directory.Exists(steamDir + "\\Metro"))
             {
-                Directory.Delete(steamDir + "\\Metro 4.2.4", true);
+                Directory.Delete(steamDir + "\\Metro", true);
             }
 
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
             {
-                SteamSkin.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
+                SteamSkin.ExtractAll(steamDir + "\\Metro\\", ExtractExistingFileAction.OverwriteSilently);
             }
 
             if (customStylesExists)
             {
-                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro\\custom.styles", true);
             }
 
             if (extrasFileExists)
             {
-                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro 4.2.4\\extras.txt", true);
+                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro\\extras.txt", true);
             }
 
 
         }
         public static void InstallPatch(string steamDir)
         {
-            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro 4.2.4", true);
+            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro", true);
         }
         public static bool CheckSteamSkinDirectoryExists(string SteamDir)
         {
@@ -100,7 +100,7 @@ namespace Metro_Skin_Installer
                     }
                     err_ARCHIVE = false;
                 }
-                catch (Ionic.Zip.ZipException e)
+                catch (ZipException e)
                 {
                     MessageBox.Show("Downloaded archive seems corrupt: " + e.Message);
                     err_ARCHIVE = true;
