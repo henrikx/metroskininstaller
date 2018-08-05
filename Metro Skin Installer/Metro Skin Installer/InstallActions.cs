@@ -43,43 +43,43 @@ namespace Metro_Skin_Installer
             bool customStylesExists = false;
             bool extrasFileExists = false;
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\custom.styles"))
+            if (File.Exists(steamDir + "\\Metro\\custom.styles"))
             {
                 customStylesExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\custom.styles", Path.GetTempPath() + "custom.styles", true);
+                File.Copy(steamDir + "\\Metro\\custom.styles", Path.GetTempPath() + "custom.styles", true);
             }
 
-            if (File.Exists(steamDir + "\\Metro 4.2.4\\extras.txt"))
+            if (File.Exists(steamDir + "\\Metro\\extras.txt"))
             {
                 extrasFileExists = true;
-                File.Copy(steamDir + "\\Metro 4.2.4\\extras.txt", Path.GetTempPath() + "extras.txt", true);
+                File.Copy(steamDir + "\\Metro\\extras.txt", Path.GetTempPath() + "extras.txt", true);
             }
 
-            if (Directory.Exists(steamDir + "\\Metro 4.2.4"))
+            if (Directory.Exists(steamDir + "\\Metro"))
             {
-                Directory.Delete(steamDir + "\\Metro 4.2.4", true);
+                Directory.Delete(steamDir + "\\Metro", true);
             }
 
             using (ZipFile SteamSkin = ZipFile.Read(Path.GetTempPath() + "officialskin.zip"))
             {
-                SteamSkin.ExtractAll(steamDir, ExtractExistingFileAction.OverwriteSilently);
+                SteamSkin.ExtractAll(steamDir + "\\Metro\\", ExtractExistingFileAction.OverwriteSilently);
             }
 
             if (customStylesExists)
             {
-                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro 4.2.4\\custom.styles", true);
+                File.Copy(Path.GetTempPath() + "custom.styles", steamDir + "\\Metro\\custom.styles", true);
             }
 
             if (extrasFileExists)
             {
-                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro 4.2.4\\extras.txt", true);
+                File.Copy(Path.GetTempPath() + "extras.txt", steamDir + "\\Metro\\extras.txt", true);
             }
 
 
         }
         public static void InstallPatch(string steamDir)
         {
-            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro 4.2.4", true);
+            DirectoryCopy(Path.GetTempPath() + "UPMetroSkin-installer\\normal_Unofficial Patch", steamDir + "\\Metro", true);
         }
         public static bool CheckSteamSkinDirectoryExists(string SteamDir)
         {
