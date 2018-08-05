@@ -5,6 +5,7 @@ using System.Net;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Metro_Skin_Installer
 {
@@ -155,6 +156,7 @@ namespace Metro_Skin_Installer
         }
         public static void Cleanup()
         {
+            Thread.Sleep(200);
             if (File.Exists(Path.GetTempPath() + "installer.zip")) { File.Delete(Path.GetTempPath() + "installer.zip"); }
             if (File.Exists(Path.GetTempPath() + "officialskin.zip")) { File.Delete(Path.GetTempPath() + "officialskin.zip"); }
             if (Directory.Exists(Path.GetTempPath() + "UPMetroSkin-installer")) { Directory.Delete(Path.GetTempPath() + "UPMetroSkin-installer", true); }
