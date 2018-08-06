@@ -17,6 +17,8 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            Thread UpdateCheck = new Thread(InstallActions.UpdateCheck);
+            UpdateCheck.Start();
             if(SteamSkinPath == null)
             {
                 MessageBox.Show("Steam couldn't be found. \nPlease install steam or reinstall if already installed.");
@@ -100,7 +102,7 @@ namespace Metro_Skin_Installer
                     }
                 }
                 if (saveExtrasCheckBox.Checked)
-                    File.WriteAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt", checkedExtras);
+                    File.WriteAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt", checkedExtras);
             }
 
         }
@@ -118,9 +120,9 @@ namespace Metro_Skin_Installer
             }
             
             extrasListBox.DataSource = InstallActions.DetectExtras();
-            if (File.Exists(SteamSkinPath + "\\Metro 4.2.4\\extras.txt"))
+            if (File.Exists(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt"))
             {
-                string[] savedExtras = File.ReadAllLines(SteamSkinPath + "\\Metro 4.2.4\\extras.txt");
+                string[] savedExtras = File.ReadAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt");
                 for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
                     if (savedExtras.Contains(extrasListBox.Items[i]))

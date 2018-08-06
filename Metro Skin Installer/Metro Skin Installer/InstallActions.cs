@@ -6,12 +6,30 @@ using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Threading;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
 
 namespace Metro_Skin_Installer
 {
     class InstallActions
     {
-        const string SkinFolder = "\\"+"MetroSkin";
+        public const string SkinFolder = "\\"+"MetroSkin";
+        public static void UpdateCheck()
+        {
+            WebClient GitHubAPI = new WebClient();
+            JavaScriptSerializer jsonParser = new JavaScriptSerializer();
+            string jsonResponse = null;
+            GitHubAPI.Headers.Add("user-agent", "MetroSkinInstaller");
+            jsonResponse = GitHubAPI.DownloadString(@"https://api.github.com/repos/henrikx/metroskininstaller/releases");
+            Dictionary<string,dynamic>[] ReleaseData = jsonParser.Deserialize<Dictionary<string,dynamic>[]>(jsonResponse);
+            if ((ReleaseData[0])["tag_name"] != "v" + Application.ProductVersion)
+            {
+                if (MessageBox.Show(null, "An update is available! Download now?", "Update", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Process.Start(@"https://github.com/henrikx/metroskininstaller/releases");
+                }
+            }
+        }
         public static System.Uri GetLatestMetro()
         {
             System.Uri LatestURI = new System.Uri("https://google.com/");
@@ -91,7 +109,7 @@ namespace Metro_Skin_Installer
             DirectoryInfo[] dirs = dir.GetDirectories();
             foreach (DirectoryInfo subdir in dirs)
             {
-                if (subdir.FullName.Contains("Metro"))
+                if (subdir.Name.Contains("Metro"))
                 {
                     SkinDir = subdir.FullName;
                     break;
