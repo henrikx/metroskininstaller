@@ -97,7 +97,7 @@ namespace Metro_Skin_Installer
                         string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
                         CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
                         checkedExtras.Add(CurrentWorker.Text);
-                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + "\\Metro 4.2.4", true);
+                        InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + InstallActions.SkinFolder, true);
                         installProgress.Value += incrementalProgressbarIncrease;
                     }
                 }
