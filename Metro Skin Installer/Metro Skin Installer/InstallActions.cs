@@ -158,6 +158,7 @@ namespace Metro_Skin_Installer
         }
         public static List<string> DetectExtras()
         {
+            LocalData.GetExtras();
             string[] manifest = File.ReadAllLines(Path.GetTempPath() + "UPMetroSkin-installer\\manifest.txt");
 
             List<string> ExtrasList = new List<string> { };
