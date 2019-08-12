@@ -88,14 +88,13 @@ namespace Metro_Skin_Installer
             if (extrasListBox.CheckedItems.Count >= 1)
             {
                 int incrementalProgressbarIncrease = 20 / extrasListBox.CheckedItems.Count;
-                string[] manifest = File.ReadAllLines(Path.GetTempPath() + "\\UPMetroSkin-installer\\manifest.txt");
                 List<String> checkedExtras = new List<String>();
                 for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
                     if (extrasListBox.GetItemChecked(i))
                     {
-                        string ExtraPath = Regex.Match((manifest[i].Replace("\\", "")), "\"(.*?)\";\"(.*?)\";\"(.*?)\";\"(.*?)\"").Groups[2].Value;
-                        CurrentWorker.Text = extrasListBox.GetItemText(extrasListBox.Items[i]);
+                        string ExtraPath = ((Extra)extrasListBox.Items[i]).Path;
+                        CurrentWorker.Text = ((Extra)extrasListBox.Items[i]).Name;
                         checkedExtras.Add(CurrentWorker.Text);
                         InstallActions.DirectoryCopy(Path.GetTempPath() + "\\UPMetroSkin-installer\\normal_Extras\\" + ExtraPath, SteamSkinPath + InstallActions.SkinFolder, true);
                         installProgress.Value += incrementalProgressbarIncrease;
@@ -118,14 +117,15 @@ namespace Metro_Skin_Installer
                 page2patched.Visible = false;
                 return;
             }
-            
-            extrasListBox.DataSource = InstallActions.DetectExtras();
+            LocalData.GetExtras();
+            extrasListBox.DataSource = LocalData.globalExtras;
+            extrasListBox.DisplayMember = "Name";
             if (File.Exists(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt"))
             {
                 string[] savedExtras = File.ReadAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt");
                 for (int i = 0; i < extrasListBox.Items.Count; i++)
                 {
-                    if (savedExtras.Contains(extrasListBox.Items[i]))
+                    if (savedExtras.Contains(((Extra)extrasListBox.Items[i]).Name))
                         extrasListBox.SetItemChecked(i, true);
                 }
                 if (savedExtras.Length > 0)
