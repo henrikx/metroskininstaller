@@ -32,30 +32,47 @@ namespace Metro_Skin_Installer
         }
         public static System.Uri GetLatestMetro()
         {
-            System.Uri LatestURI = new System.Uri("https://google.com/");
-            WebClient downloadFile = new WebClient();
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
-            string source = "";
+            //System.Uri LatestURI = new System.Uri("https://google.com/");
+            //WebClient downloadFile = new WebClient();
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            //string source = "";
+            //try
+            //{
+            //    source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
+            //    err_ARCHIVE = false;
+            //}
+            //catch (System.Net.WebException e)
+            //{
+            //    MessageBox.Show(e.Message); // No internet
+            //    err_ARCHIVE = true;
+            //    return new System.Uri("http://dead.com");
+            //}
+
+            //List<string> downloadEventArgs = new List<string>();
+            //var regex = Regex.Match(source, @"href=""downloads(\/.*\.zip)""");
+            //if (!regex.Success)
+            //{
+            //    MessageBox.Show("Could not find the latest version of Metro! This program is not updated. Download the latest version or wait for it to be updated.");
+            //}
+            //LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
+            //return LatestURI;
+            WebClient GitHubAPI = new WebClient();
+            JavaScriptSerializer jsonParser = new JavaScriptSerializer();
+            string jsonResponse = null;
+            GitHubAPI.Headers.Add("user-agent", "MetroSkinInstaller");
             try
             {
-                source = Convert.ToString(downloadFile.DownloadString("http://metroforsteam.com"));
-                err_ARCHIVE = false;
-            }
-            catch (System.Net.WebException e)
+                jsonResponse = GitHubAPI.DownloadString(@"https://api.github.com/repos/minischetti/metro-for-steam/releases");
+
+            } catch (WebException e)
             {
-                MessageBox.Show(e.Message); // No internet
+                MessageBox.Show(e.Message);
                 err_ARCHIVE = true;
                 return new System.Uri("http://dead.com");
             }
-
-            List<string> downloadEventArgs = new List<string>();
-            var regex = Regex.Match(source, @"href=""downloads(\/.*\.zip)""");
-            if (!regex.Success)
-            {
-                MessageBox.Show("Could not find the latest version of Metro! This program is not updated. Download the latest version or wait for it to be updated.");
-            }
-            LatestURI = new System.Uri("http://metroforsteam.com/downloads" + Convert.ToString(regex.Groups[1].Value));
-            return LatestURI;
+            Dictionary<string, dynamic>[] ReleaseData = jsonParser.Deserialize<Dictionary<string, dynamic>[]>(jsonResponse);
+            string LatestURI = @"https://github.com/minischetti/metro-for-steam/archive/" + (ReleaseData[0])["tag_name"] + ".zip";
+            return new Uri(LatestURI);
         }
 
         public static void InstallSkin(string steamDir)
@@ -109,7 +126,7 @@ namespace Metro_Skin_Installer
             DirectoryInfo[] dirs = dir.GetDirectories();
             foreach (DirectoryInfo subdir in dirs)
             {
-                if (subdir.Name.Contains("Metro"))
+                if (subdir.Name.Contains("Metro") || subdir.Name.Contains("metro"))
                 {
                     SkinDir = subdir.FullName;
                     break;
