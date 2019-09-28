@@ -18,17 +18,24 @@ namespace Metro_Skin_Installer
         {
             WebClient GitHubAPI = new WebClient();
             JavaScriptSerializer jsonParser = new JavaScriptSerializer();
-            string jsonResponse = null;
-            GitHubAPI.Headers.Add("user-agent", "MetroSkinInstaller");
-            jsonResponse = GitHubAPI.DownloadString(@"https://api.github.com/repos/henrikx/metroskininstaller/releases");
-            Dictionary<string,dynamic>[] ReleaseData = jsonParser.Deserialize<Dictionary<string,dynamic>[]>(jsonResponse);
-            if ((ReleaseData[0])["tag_name"] != "v" + Application.ProductVersion)
+            try
             {
-                if (MessageBox.Show(null, "An update is available! Download now?", "Update", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                string jsonResponse = null;
+                GitHubAPI.Headers.Add("user-agent", "MetroSkinInstaller");
+                jsonResponse = GitHubAPI.DownloadString(@"https://api.github.com/repos/henrikx/metroskininstaller/releases");
+                Dictionary<string, dynamic>[] ReleaseData = jsonParser.Deserialize<Dictionary<string, dynamic>[]>(jsonResponse);
+                if ((ReleaseData[0])["tag_name"] != "v" + Application.ProductVersion)
                 {
-                    Process.Start(@"https://github.com/henrikx/metroskininstaller/releases");
+                    if (MessageBox.Show(null, "An update is available! Download now?", "Update", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        Process.Start(@"https://github.com/henrikx/metroskininstaller/releases");
+                    }
                 }
+            } catch (WebException)
+            {
+                MessageBox.Show("Update check failed. Do you have Internet?");
             }
+
         }
         public static System.Uri GetLatestMetro()
         {
