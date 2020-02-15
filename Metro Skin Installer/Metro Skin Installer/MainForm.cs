@@ -104,6 +104,11 @@ namespace Metro_Skin_Installer
                 if (saveExtrasCheckBox.Checked)
                     File.WriteAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt", checkedExtras);
             }
+            else
+            {
+                if (File.Exists(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt"))
+                    File.Delete(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt");
+            }
 
         }
         private void DownloadPatch_DoWork(object sender, DoWorkEventArgs e) //When select extras window is activated
