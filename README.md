@@ -8,7 +8,7 @@ https://github.com/henrikx/metroskininstaller/issues
 https://github.com/henrikx/metroskininstaller/issues
 
 # Dependencies
-* .NET Framework 4.6
+* .NET Framework 4.7.2
 
 # Credits
 * RedSigma for testing and custom repo for installer.
