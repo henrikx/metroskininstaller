@@ -15,13 +15,21 @@ namespace Metro_Skin_Installer
         [STAThread]
         static void Main()
         {
+            try
+            {
+
 #if !DEBUG
-            Assembly start = Assembly.Load((byte[])Properties.Resources.Ionic_Zip);
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+                Assembly start = Assembly.Load((byte[])Properties.Resources.Ionic_Zip);
+                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 #endif
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            } catch (Exception ex) //handle anything not handled to avoid "freezing"
+            {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
+                Application.Exit();
+            }
         }
 #if !DEBUG
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
