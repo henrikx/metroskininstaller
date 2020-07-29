@@ -237,20 +237,19 @@ namespace Metro_Skin_Installer
 
             System.Uri uri = new System.Uri("https://github.com/redsigma/UPMetroSkin/archive/installer.zip");
 
-            DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(PatchDownloader_DownloadProgressChanged);
-            PatchDownloader.DownloadProgressChanged += progressHandler;
+
+            PatchDownloader.DownloadProgressChanged += (s, e) =>
+            {
+                if (e.ProgressPercentage <= 95)
+                {
+                    progressBar1.Value = e.ProgressPercentage;
+                }
+            };
 
             PatchDownloader.DownloadFileAsync(uri, TempDir + "\\installer.zip");
             while (PatchDownloader.IsBusy)
             {
                Thread.Sleep(500);
-            }
-        }
-        private void PatchDownloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            if(e.ProgressPercentage <= 95)
-            {
-                progressBar1.Value = e.ProgressPercentage;
             }
         }
 
