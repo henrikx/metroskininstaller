@@ -154,6 +154,8 @@ namespace Metro_Skin_Installer
             return Directory.Exists(SteamDir);
         }
 
+        public static event Action<int> ZipProgressChanged;
+
         public static void TempExtractPatch()
         {
             string path = Path.GetTempPath() + "installer.zip";
@@ -164,6 +166,13 @@ namespace Metro_Skin_Installer
                 {
                     using (ZipFile patchZip = ZipFile.Read(path))
                     {
+                        patchZip.ExtractProgress += (s, e) =>
+                        {
+                            if (e.EventType == ZipProgressEventType.Extracting_AfterExtractEntry)
+                            {
+                                ZipProgressChanged?.Invoke(e.EntriesExtracted * 100 / e.EntriesTotal);
+                            }
+                        };
                         patchZip.ExtractAll(Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);
                     }
                     err_ARCHIVE = false;

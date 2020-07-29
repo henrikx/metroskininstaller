@@ -115,8 +115,9 @@ namespace Metro_Skin_Installer
         {
             DownloadPatch();
             progressBar1.Value = 100;
+            InstallActions.ZipProgressChanged += (f) => { progressBar1.Value = f; };
             InstallActions.TempExtractPatch();
-
+            InstallActions.ZipProgressChanged -= (f) => { progressBar1.Value = f; };
             if (InstallActions.err_ARCHIVE)
             {
                 page1.Visible = true;

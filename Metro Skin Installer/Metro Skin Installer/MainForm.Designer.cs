@@ -255,7 +255,7 @@
             this.saveExtrasCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.saveExtrasCheckBox.ForeColor = System.Drawing.Color.White;
             this.saveExtrasCheckBox.Location = new System.Drawing.Point(52, 200);
-            this.saveExtrasCheckBox.Name = "saveExtras";
+            this.saveExtrasCheckBox.Name = "saveExtrasCheckBox";
             this.saveExtrasCheckBox.Size = new System.Drawing.Size(145, 21);
             this.saveExtrasCheckBox.TabIndex = 15;
             this.saveExtrasCheckBox.Text = "Save selected extras";
@@ -492,10 +492,10 @@
         private System.Windows.Forms.ProgressBar installProgress;
         private System.Windows.Forms.Button button1;
         private System.ComponentModel.BackgroundWorker DownloadPatchWorker;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.ComponentModel.BackgroundWorker DownloadWorker;
         private System.Windows.Forms.Label extrasLoadingText;
         private System.Windows.Forms.CheckBox saveExtrasCheckBox;
+        public System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
