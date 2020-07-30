@@ -8,11 +8,16 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace Metro_Skin_Installer
 {
     class InstallActions
     {
+
+        public static bool workerRequestCancel = false;
+
         public const string SkinFolder = "\\"+"MetroSkin";
         public static void UpdateCheck()
         {
@@ -171,6 +176,11 @@ namespace Metro_Skin_Installer
                             if (e.EventType == ZipProgressEventType.Extracting_AfterExtractEntry)
                             {
                                 ZipProgressChanged?.Invoke(e.EntriesExtracted * 100 / e.EntriesTotal);
+                            }
+                            
+                            if (workerRequestCancel)
+                            {
+                                e.Cancel = true;
                             }
                         };
                         patchZip.ExtractAll(Path.GetTempPath(), ExtractExistingFileAction.OverwriteSilently);

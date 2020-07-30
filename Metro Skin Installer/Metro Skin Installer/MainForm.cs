@@ -17,6 +17,7 @@ namespace Metro_Skin_Installer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            FormClosing += formClosingHandler;
             Thread UpdateCheck = new Thread(InstallActions.UpdateCheck);
             UpdateCheck.Start();
             if(SteamSkinPath == null)
@@ -30,6 +31,16 @@ namespace Metro_Skin_Installer
             }
         }
 
+
+        private void formClosingHandler (object sender, CancelEventArgs e)
+        {
+            InstallActions.workerRequestCancel = true;
+            if (DownloadPatchWorker.IsBusy)
+            {
+                DownloadPatchWorker.CancelAsync();
+            }
+            while (DownloadPatchWorker.IsBusy || DownloadWorker.IsBusy) { Application.DoEvents(); };
+        }
         public static bool hasPermission(string dir)
         {
             try
@@ -111,42 +122,47 @@ namespace Metro_Skin_Installer
             }
 
         }
+        
         private void DownloadPatch_DoWork(object sender, DoWorkEventArgs e) //When select extras window is activated
         {
             DownloadPatch();
+            if (DownloadPatchWorker.CancellationPending) { InstallActions.Cleanup(); return; }
             progressBar1.Value = 100;
             InstallActions.ZipProgressChanged += (f) => { progressBar1.Value = f; };
             InstallActions.TempExtractPatch();
             InstallActions.ZipProgressChanged -= (f) => { progressBar1.Value = f; };
-            if (InstallActions.err_ARCHIVE)
+            if (!DownloadPatchWorker.CancellationPending)
             {
-                page1.Visible = true;
-                page2patched.Visible = false;
-                return;
-            }
-            
-            extrasListBox.DataSource = InstallActions.DetectExtras();
-            if (File.Exists(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt"))
-            {
-                string[] savedExtras = File.ReadAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt");
-                for (int i = 0; i < extrasListBox.Items.Count; i++)
+                if (InstallActions.err_ARCHIVE)
                 {
-                    if (savedExtras.Contains(extrasListBox.Items[i]))
-                        extrasListBox.SetItemChecked(i, true);
+                    page1.Visible = true;
+                    page2patched.Visible = false;
+                    return;
                 }
-                if (savedExtras.Length > 0)
-                    saveExtrasCheckBox.Checked = true;
-            }
-            progressBar1.Visible = false;
-            extrasLoadingText.Visible = false;
-            saveExtrasCheckBox.Invoke((MethodInvoker)(() => { saveExtrasCheckBox.Visible = true; }));
-            PatchInstallButton.Enabled = true;
-            PatchInstallButton.ForeColor = Color.White;
-            PatchInstallButton.Image = Properties.Resources.right_arrow;
+
+                extrasListBox.DataSource = InstallActions.DetectExtras();
+                if (File.Exists(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt"))
+                {
+                    string[] savedExtras = File.ReadAllLines(SteamSkinPath + InstallActions.SkinFolder + "\\extras.txt");
+                    for (int i = 0; i < extrasListBox.Items.Count; i++)
+                    {
+                        if (savedExtras.Contains(extrasListBox.Items[i]))
+                            extrasListBox.SetItemChecked(i, true);
+                    }
+                    if (savedExtras.Length > 0)
+                        saveExtrasCheckBox.Checked = true;
+                }
+                progressBar1.Visible = false;
+                extrasLoadingText.Visible = false;
+                saveExtrasCheckBox.Invoke((MethodInvoker)(() => { saveExtrasCheckBox.Visible = true; }));
+                PatchInstallButton.Enabled = true;
+                PatchInstallButton.ForeColor = Color.White;
+                PatchInstallButton.Image = Properties.Resources.right_arrow;
+            } else { InstallActions.Cleanup(); }
+
         }
         private void ExitButton_Click(object sender, EventArgs e)
         {
-            InstallActions.Cleanup();
             Application.Exit();
         }
         #region dragabbletitlebar
@@ -228,6 +244,7 @@ namespace Metro_Skin_Installer
             InstallerArguments.Add(isPatch);
             InstallerPage.Visible = true;
             page2patched.Visible = false;
+            ExitButton.Enabled = false;
             DownloadWorker.RunWorkerAsync(InstallerArguments);
         }
         #endregion
@@ -248,8 +265,12 @@ namespace Metro_Skin_Installer
             };
 
             PatchDownloader.DownloadFileAsync(uri, TempDir + "\\installer.zip");
-            while (PatchDownloader.IsBusy)
+            while (PatchDownloader.IsBusy )
             {
+                if (DownloadPatchWorker.CancellationPending)
+                {
+                    PatchDownloader.CancelAsync();
+                }
                Thread.Sleep(500);
             }
         }

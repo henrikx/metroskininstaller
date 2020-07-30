@@ -430,6 +430,7 @@
             // 
             // DownloadPatchWorker
             // 
+            this.DownloadPatchWorker.WorkerSupportsCancellation = true;
             this.DownloadPatchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadPatch_DoWork);
             // 
             // DownloadWorker
@@ -491,11 +492,11 @@
         private System.Windows.Forms.Label installingTitle;
         private System.Windows.Forms.ProgressBar installProgress;
         private System.Windows.Forms.Button button1;
-        private System.ComponentModel.BackgroundWorker DownloadPatchWorker;
         private System.ComponentModel.BackgroundWorker DownloadWorker;
         private System.Windows.Forms.Label extrasLoadingText;
         private System.Windows.Forms.CheckBox saveExtrasCheckBox;
         public System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker DownloadPatchWorker;
     }
 }
 
