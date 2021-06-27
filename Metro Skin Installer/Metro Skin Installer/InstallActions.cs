@@ -89,6 +89,11 @@ namespace Metro_Skin_Installer
 
         public static void InstallSkin(string steamDir)
         {
+            if (!Directory.Exists(steamDir))
+            {
+                Directory.CreateDirectory(steamDir);
+            }
+
             bool customStylesExists = false;
             bool extrasFileExists = false;
 
