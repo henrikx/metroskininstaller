@@ -45,6 +45,10 @@ namespace Metro_Skin_Installer
         {
             try
             {
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
                 File.CreateText(dir + "\\chkPerm").Close();
             }
             catch (UnauthorizedAccessException e)
