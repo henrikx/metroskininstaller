@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Metro_Skin_Installer
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             try
             {
@@ -24,7 +20,7 @@ namespace Metro_Skin_Installer
             }
             catch (Exception ex) //handle anything not handled to avoid "freezing"
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
+                _ = MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
                 Application.Exit();
             }
         }
