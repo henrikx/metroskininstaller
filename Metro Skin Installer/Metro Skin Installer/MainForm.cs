@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Metro_Skin_Installer
 {
@@ -70,8 +71,13 @@ namespace Metro_Skin_Installer
         {
             CurrentWorker.Text = "Base Skin";
             List<bool> InstallerArguments = e.Argument as List<bool>;
-
-            DownloadOfficial(InstallActions.GetLatestMetro());
+            try
+            {
+                DownloadOfficialAsync(InstallActions.GetLatestMetro("vanilla")).Wait();
+            } catch (AggregateException)
+            {
+                DownloadOfficialAsync(InstallActions.GetLatestMetro()).Wait(); // if vanilla branch not found then download from master branch
+            }
 
             if (InstallActions.err_ARCHIVE)
             {
@@ -284,7 +290,7 @@ namespace Metro_Skin_Installer
         }
 
  
-        private void DownloadOfficial(System.Uri URI)
+        private async Task DownloadOfficialAsync(System.Uri URI)
         {
             string TempDir = Path.GetTempPath();
             WebClient Downloader = new WebClient();
@@ -292,11 +298,8 @@ namespace Metro_Skin_Installer
             DownloadProgressChangedEventHandler progressHandler = new DownloadProgressChangedEventHandler(Downloader_DownloadProgressChanged);
             Downloader.DownloadProgressChanged += progressHandler;
 
-            Downloader.DownloadFileAsync(URI, TempDir + "\\officialskin.zip");
-            while (Downloader.IsBusy)
-            {
-                Thread.Sleep(500);
-            }
+            await Downloader.DownloadFileTaskAsync(URI, TempDir + "\\officialskin.zip");
+
         }
         private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         { 

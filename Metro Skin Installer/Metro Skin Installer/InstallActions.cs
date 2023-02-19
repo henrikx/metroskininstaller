@@ -42,9 +42,9 @@ namespace Metro_Skin_Installer
             }
 
         }
-        public static System.Uri GetLatestMetro()
+        public static System.Uri GetLatestMetro(string branch = "master")
         {
-            string LatestURI = @"https://codeload.github.com/redsigma/metro-for-steam/zip/master";
+            string LatestURI = $"https://codeload.github.com/redsigma/metro-for-steam/zip/{branch}";
             return new Uri(LatestURI);
         }
 
