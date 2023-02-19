@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Ionic.Zip;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Threading;
-using System.Web.Script.Serialization;
+using System.Text.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using Ionic.Zip;
+using System.Linq;
 
 namespace Metro_Skin_Installer
 {
+    public class Release
+    {
+        public string Tag_Name { get; set; }
+    }
+
     class InstallActions
     {
 
@@ -22,14 +28,17 @@ namespace Metro_Skin_Installer
         public static void UpdateCheck()
         {
             WebClient GitHubAPI = new WebClient();
-            JavaScriptSerializer jsonParser = new JavaScriptSerializer();
             try
             {
                 string jsonResponse = null;
                 GitHubAPI.Headers.Add("user-agent", "MetroSkinInstaller");
                 jsonResponse = GitHubAPI.DownloadString(@"https://api.github.com/repos/henrikx/metroskininstaller/releases");
-                Dictionary<string, dynamic>[] ReleaseData = jsonParser.Deserialize<Dictionary<string, dynamic>[]>(jsonResponse);
-                if ((ReleaseData[0])["tag_name"] != "v" + Application.ProductVersion)
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var ReleaseData = JsonSerializer.Deserialize<List<Release>>(jsonResponse, options).First();
+                if (ReleaseData.Tag_Name != "v" + Application.ProductVersion)
                 {
                     if (MessageBox.Show(null, "An update is available! Download now?", "Update", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {

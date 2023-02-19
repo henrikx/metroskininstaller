@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Text;
 
 namespace Metro_Skin_Installer
 {
@@ -17,27 +18,15 @@ namespace Metro_Skin_Installer
         {
             try
             {
-
-#if !DEBUG
-                Assembly start = Assembly.Load((byte[])Properties.Resources.Ionic_Zip);
-                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-#endif
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                ApplicationConfiguration.Initialize();
                 Application.Run(new MainForm());
-            } catch (Exception ex) //handle anything not handled to avoid "freezing"
+            }
+            catch (Exception ex) //handle anything not handled to avoid "freezing"
             {
                 MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
                 Application.Exit();
             }
         }
-#if !DEBUG
-        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            string assemblyName = new AssemblyName(args.Name).Name.Replace('.', '_');
-            byte[] assemblyBytes = (byte[])Properties.Resources.ResourceManager.GetObject(assemblyName, Properties.Resources.Culture);
-            return Assembly.Load(assemblyBytes);
-        }
-#endif
     }
 }
