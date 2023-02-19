@@ -228,6 +228,10 @@ namespace Metro_Skin_Installer
         }
         private void OfficialInstallbutton_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("You have selected to install an unsupported version of the skin! This version is UNMAINTAINED, contains MAJOR bugs and is NOT recommended. Press OK if you know what you're doing and you want to proceed.", "Confirmation", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
             if (InstallActions.CheckSteamSkinDirectoryExists(SteamSkinPath))
             {
                 bool isPatch = false;

@@ -162,11 +162,11 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(24, 233);
+            this.label5.Location = new System.Drawing.Point(24, 237);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(211, 57);
+            this.label5.Size = new System.Drawing.Size(155, 38);
             this.label5.TabIndex = 8;
-            this.label5.Text = "The original Metro Skin \r\n(Not completely compatible with \r\nthe latest Steam)";
+            this.label5.Text = "The original Metro Skin \r\n(NOT recommended!)";
             // 
             // title2
             // 
