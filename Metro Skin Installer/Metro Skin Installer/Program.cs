@@ -14,7 +14,6 @@ namespace Metro_Skin_Installer
         {
             try
             {
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 ApplicationConfiguration.Initialize();
                 Application.Run(new MainForm());
             }
