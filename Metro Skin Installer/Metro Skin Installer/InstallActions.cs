@@ -40,7 +40,11 @@ namespace Metro_Skin_Installer
                 {
                     if (MessageBox.Show(null, "An update is available! Download now?", "Update", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        _ = Process.Start(new ProcessStartInfo(@"https://github.com/henrikx/metroskininstaller/releases") { UseShellExecute = true });
+                        _ = Process.Start(
+                            new ProcessStartInfo(@"https://github.com/henrikx/metroskininstaller/releases")
+                            {
+                                UseShellExecute = true
+                            });
                     }
                 }
             }
