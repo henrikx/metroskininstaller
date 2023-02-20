@@ -4,9 +4,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Metro_Skin_Installer</RootNamespace>
     <AssemblyName>Metro Skin Updater Tool</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Copyright>© 2023, Metro Skin Installer</Copyright>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Version>1.4.16</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DotNetZip" Version="1.16.0" />
