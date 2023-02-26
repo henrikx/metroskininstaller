@@ -1,16 +1,21 @@
 # Metroskininstaller
+
 An installer for the Metro Steam Skin. It allows you to install both the community patched version and the official skin.
 
-# Todo
+## Todo
+
 https://github.com/henrikx/metroskininstaller/issues
 
-# Bugs
+## Bugs
+
 https://github.com/henrikx/metroskininstaller/issues
 
-# Dependencies
-* .NET Framework 4.7.2
+## Dependencies
 
-# Credits
+* [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+
+## Credits
+
 * RedSigma for testing and custom repo for installer.
 * https://www.flaticon.com/packs/free-basic-ui-elements
 

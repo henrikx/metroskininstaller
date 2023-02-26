@@ -1,43 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using System.Windows.Forms;
-using System.Reflection;
 
 namespace Metro_Skin_Installer
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             try
             {
-
-#if !DEBUG
-                Assembly start = Assembly.Load((byte[])Properties.Resources.Ionic_Zip);
-                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-#endif
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                ApplicationConfiguration.Initialize();
                 Application.Run(new MainForm());
-            } catch (Exception ex) //handle anything not handled to avoid "freezing"
+            }
+            catch (Exception ex) //handle anything not handled to avoid "freezing"
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
+                _ = MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "Unhandled exception occured!");
                 Application.Exit();
             }
         }
-#if !DEBUG
-        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            string assemblyName = new AssemblyName(args.Name).Name.Replace('.', '_');
-            byte[] assemblyBytes = (byte[])Properties.Resources.ResourceManager.GetObject(assemblyName, Properties.Resources.Culture);
-            return Assembly.Load(assemblyBytes);
-        }
-#endif
     }
 }
